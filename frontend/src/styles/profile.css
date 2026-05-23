@@ -171,7 +171,7 @@
 }
 
 /* Profile picture wrapper */
-#my_pic {
+#my_profile #my_pic {
   width: 120px;
   height: 120px;
   min-width: 120px;
@@ -185,7 +185,7 @@
 }
 
 /* Image itself */
-#my_pic img {
+#my_profile #my_pic img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -200,14 +200,14 @@
 }
 
 /* Info section */
-#my_info {
+#my_profile #my_info {
   display: flex;
   flex-direction: column;
   /* gap: 0.4rem; */
 }
 
 /* Nickname */
-#my_info h3 {
+#my_profile #my_info h3 {
   /* font-size: 1.8rem; */
   font-weight: 700;
   color: #111;
@@ -215,14 +215,14 @@
 }
 
 /* Origin */
-#my_info small {
+#my_profile #my_info small {
   color: #8c8c8c;
   font-size: 0.65rem;
   font-weight: 500;
 }
 
 /* Description */
-#my_info p {
+#my_profile #my_info p {
   margin-top: 0.4rem;
   color: #120b0b;
   line-height: 1.6;
@@ -241,28 +241,28 @@
   min-height: 180px;
 }
 
-#edit_profile {
+#my_profile #edit_profile {
   display: flex;
   justify-content: space-between;
 }
 
-#edit_pnl {
+#my_profile #edit_pnl {
   width: 70%;
   /* border: red solid; */
 }
 
-#edit_pnl label {
+#my_profile #edit_pnl label {
   /* border: solid; */
 }
 
-#edit_pnl label input,
-#edit_pnl label textarea {
+#my_profile #edit_pnl label input,
+#my_profile #edit_pnl label textarea {
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
 
-button[id="edit_btn"]{
+#my_profile button[id="edit_btn"]{
   width: 90px;
   padding: 5px 7px;
   border: #00ff9d solid 0.25px;
@@ -273,7 +273,7 @@ button[id="edit_btn"]{
 
 /* Responsive */
 @media (max-width: 850px) {
-  #edit_profile {
+  #my_profile #edit_profile {
     display: flex;
     flex-direction: column;
   }
@@ -290,4 +290,40 @@ button[id="edit_btn"]{
   #my_profile article:nth-child(3) {
     grid-column: auto;
   }
+}
+
+#edit_prof_pic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+#profile_upload {
+  display: none;
+}
+
+#profile_preview {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px dashed #d4d4d4;
+  background: #f7f7f7;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#profile_preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#profile_preview span {
+  color: #777;
+  font-size: 0.9rem;
 }

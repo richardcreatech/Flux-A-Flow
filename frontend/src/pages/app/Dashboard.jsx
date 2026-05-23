@@ -25,6 +25,18 @@ function Dashboard() {
   const [origin, setOrigin] = useState("");
   const [hasSocialProfile, setHasSocialProfile] = useState(false);
 
+  const [preview, setPreview] = useState(null);
+  const [file, setFile] = useState(null);
+
+  const handleImageChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (!selectedFile) return;
+
+    setFile(selectedFile);
+    setPreview(URL.createObjectURL(selectedFile));
+  };
+
   const handleUploadedProfilePicture = (e) => {
     const file = e.target.files[0];
     setProfilePicture(file);
@@ -201,42 +213,56 @@ function Dashboard() {
                 <img src={profilePicture} alt="" width={50} height={50} />
               </div>
               <div id="my_info">
-                <h3>{nickname}  </h3>
+                <h3>{nickname} </h3>
                 <small>{origin}</small>
                 <p>{desc}</p>
               </div>
             </article>
 
-            <article></article>
+            <article id="edit_prof_pic">
+              <label htmlFor="profile_upload" id="profile_preview">
+                {preview ? (
+                  <img src={preview} alt="Preview" />
+                ) : (
+                  <span>Upload Photo</span>
+                )}
+              </label>
+
+              <input
+                id="profile_upload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+
+              <button>Save Changes</button>
+            </article>
+
             <article id="edit_profile">
               <div>
                 <h2>Profile Information</h2>
                 <p>Update your personal and farm details</p>
               </div>
               <br />
-              <form  id="edit_pnl"  action="">
+              <form id="edit_pnl" action="">
+                <label>
+                  <p>Nickname</p>
+                  <input type="text" name="" id="" />
+                </label>
 
-              
-                  
-                  <label>
-                    <p>Nickname</p>
-                    <input type="text" name="" id="" />
-                  </label>
+                <label>
+                  <p>Origin</p>
+                  <input type="text" name="" id="" />
+                </label>
 
-                  <label>
-                    <p>Origin</p>
-                    <input type="text" name="" id="" />
-                  </label>
+                <label>
+                  <p>Description</p>
+                  <textarea name="" id=""></textarea>
+                </label>
 
-                  <label>
-                    <p>Description</p>
-                   <textarea name="" id=""></textarea>
-                  </label>
-
-<button id="edit_btn">Edit Profile</button>
+                <button id="edit_btn">Edit Profile</button>
               </form>
             </article>
-            
           </section>
         )}
       </section>
