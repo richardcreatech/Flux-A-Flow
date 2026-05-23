@@ -1,38 +1,30 @@
 const showcaseData = [
   {
-    title: "Build fast. Stay in control.",
-    description: "Know what’s working without slowing your momentum."
+    title: "Stay in control.",
+    description: "Get Products Right a your Finger Tips."
   },
   {
-    title: "Your startup deserves clarity.",
+    title: "A Good price  deserves Good Quality.",
     description: "Understand your numbers without digging through chaos."
   },
   {
-    title: "Stop guessing your finances.",
-    description: "Make decisions based on real data, not vibes."
+    title: "Stop Playing with Quality.",
+    description: "Get Products that make your day."
   },
   {
-    title: "From idea to income.",
-    description: "Track every step of your startup journey in one place."
+    title: "From a Farm to your house.",
+    description: "Right Product at the right price"
   },
   {
-    title: "Less spreadsheets. More building.",
-    description: "Focus on growth while we handle the insights."
-  },
-  {
-    title: "Because chaos doesn’t scale.",
-    description: "Bring structure to your startup finances early."
+    title: "Less Stress. More Food.",
+    description: "Do Less. Get More."
   },
   {
     title: "Clarity is your unfair advantage.",
     description: "See everything. Miss nothing."
   },
   {
-    title: "Know your numbers. Own your growth.",
-    description: "Confidence comes from clarity."
-  },
-  {
-    title: "Don’t let money slow you down.",
+    title: "Don’t let anything get in ur way.",
     description: "Stay focused while staying informed."
   }
 ];

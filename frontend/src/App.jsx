@@ -1,16 +1,16 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/app/main/Dashboard'
 import Auth from './pages/auth/Auth'
-import Startup from './pages/app/main/Startup'
+import Dashboard from './pages/app/Dashboard'
+
 
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Auth />} />
+      <Route path="/login" element={<Auth />} />
       <Route path="/main" element={<Dashboard />} />
-      <Route path="/my_startup" element={<Startup />} />
+   
     </Routes>
   )
 }

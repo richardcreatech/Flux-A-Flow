@@ -2,6 +2,7 @@ import React from "react";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import logo from "../../assets/logo.png";
+import Successful from "../../components/Success";
 
 function AuthForm() {
     const [signIn, setSignIn] = React.useState(true);
@@ -21,7 +22,6 @@ function AuthForm() {
     <div className="auth-form">
 
       <img src={logo} alt="Logo" width={90} height={90} />
-      
 
     
       {/* <form>
