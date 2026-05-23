@@ -80,12 +80,7 @@ function Aside() {
                     </a>
                   </li>
       
-                  <li>
-                    <a href="#">
-                      <FontAwesomeIcon icon={faDoorOpen} />
-                      <small>Sign Out</small>
-                    </a>
-                  </li>
+               
                 </ul>
               </nav>
       <hr />

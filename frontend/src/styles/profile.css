@@ -91,20 +91,19 @@
 
 /* Button */
 #social_profile_creation_space form button {
-    margin-top: auto;
-    padding: 0.9rem;
-    border: none;
-    border-radius: 10px;
+  margin-top: auto;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 10px;
   background: #00ff9d;
   color: white;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s ease;
-color: #000;
-border: solid;
+  color: #000;
+  border: solid;
 }
-
 
 /* Button hover */
 #social_profile_creation_space form button:hover {
@@ -124,7 +123,7 @@ border: solid;
 }
 
 /* Custom upload button */
-.custom-file-upload {
+#profile_picture .custom-file-upload {
   display: inline-block;
   padding: 0.9rem 1.2rem;
   border: 2px dashed #bbb;
@@ -138,8 +137,157 @@ border: solid;
 }
 
 /* Hover effect */
-.custom-file-upload:hover {
+#profile_picture .custom-file-upload:hover {
   background: #f3f4f6;
   border-color: #4f46e5;
   color: #4f46e5;
+}
+
+#my_profile {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* General card styling */
+#my_profile article {
+  /* border: solid; */
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); */
+  border: 1px solid rgba(0, 0, 0, 0.94);
+}
+
+/* Main profile card */
+#my_profile article:first-child {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 220px;
+}
+
+/* Profile picture wrapper */
+#my_pic {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f3f3f3;
+  border: 4px solid #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image itself */
+#my_pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: solid 7px #00ff9d;
+  padding: 5px;
+  border-radius: 100%;
+  transition: all 0.2s linear;
+}
+
+#my_profile article:first-child:hover img {
+  scale: 1.05;
+}
+
+/* Info section */
+#my_info {
+  display: flex;
+  flex-direction: column;
+  /* gap: 0.4rem; */
+}
+
+/* Nickname */
+#my_info h3 {
+  /* font-size: 1.8rem; */
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+}
+
+/* Origin */
+#my_info small {
+  color: #8c8c8c;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+/* Description */
+#my_info p {
+  margin-top: 0.4rem;
+  color: #120b0b;
+  line-height: 1.6;
+  font-size: 0.96rem;
+  max-width: 500px;
+}
+
+/* Side card */
+#my_profile article:nth-child(2) {
+  min-height: 220px;
+}
+
+/* Bottom card */
+#my_profile article:nth-child(3) {
+  grid-column: 1 / -1;
+  min-height: 180px;
+}
+
+#edit_profile {
+  display: flex;
+  justify-content: space-between;
+}
+
+#edit_pnl {
+  width: 70%;
+  /* border: red solid; */
+}
+
+#edit_pnl label {
+  /* border: solid; */
+}
+
+#edit_pnl label input,
+#edit_pnl label textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+button[id="edit_btn"]{
+  width: 90px;
+  padding: 5px 7px;
+  border: #00ff9d solid 0.25px;
+  background: #000;
+  color: #00ff9d;
+  border-radius: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  #edit_profile {
+    display: flex;
+    flex-direction: column;
+  }
+  #my_profile {
+    grid-template-columns: 1fr;
+  }
+
+  #my_profile article:first-child {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #my_profile article:nth-child(3) {
+    grid-column: auto;
+  }
 }

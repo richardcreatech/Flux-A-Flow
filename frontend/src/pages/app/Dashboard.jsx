@@ -10,7 +10,7 @@ import {
   faStar,
   faGear,
   faDoorOpen,
-  faBoltLightning
+  faBoltLightning,
 } from "@fortawesome/free-solid-svg-icons";
 import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
@@ -29,8 +29,8 @@ function Dashboard() {
     const file = e.target.files[0];
     setProfilePicture(file);
   };
- 
- const check_for_social_profile = async () => {
+
+  const check_for_social_profile = async () => {
     const token = localStorage.getItem("token");
 
     try {
@@ -46,8 +46,7 @@ function Dashboard() {
 
       const data = await res.json();
 
-        if (!res.ok) {
-          
+      if (!res.ok) {
         console.log(data.message);
         setHasSocialProfile(data.hasProfile);
         return;
@@ -56,7 +55,9 @@ function Dashboard() {
       if (data.hasProfile) {
         setNickname(data.profile.nickname);
         setHasSocialProfile(data.hasProfile);
-        setProfilePicture(data.profile.profile_picture);
+        setDesc(data.profile.description);
+        setOrigin(data.profile.originCountry);
+        setProfilePicture(data.profile.profilePicture);
       } else {
         setNickname("");
 
@@ -66,8 +67,8 @@ function Dashboard() {
       console.error(err);
     }
   };
- 
- const check_for_token = async () => {
+
+  const check_for_token = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -96,7 +97,7 @@ function Dashboard() {
       console.error(err);
     }
   };
- 
+
   const handleProfileCreation = async (e) => {
     e.preventDefault();
 
@@ -122,9 +123,9 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    check_for_social_profile()
-    check_for_token()
-  }, [])
+    check_for_social_profile();
+    check_for_token();
+  }, []);
 
   return (
     <main className="page-layout">
@@ -184,11 +185,58 @@ function Dashboard() {
                   placeholder="Enter Origin Country"
                   required
                 />
-            
               </div>
 
-              <button type="submit"><FontAwesomeIcon icon={faBoltLightning} />Create a Social Profile</button>
+              <button type="submit">
+                <FontAwesomeIcon icon={faBoltLightning} />
+                Create a Social Profile
+              </button>
             </form>
+          </section>
+        )}
+        {handleProfileCreation && (
+          <section id="my_profile">
+            <article>
+              <div id="my_pic">
+                <img src={profilePicture} alt="" width={50} height={50} />
+              </div>
+              <div id="my_info">
+                <h3>{nickname}  </h3>
+                <small>{origin}</small>
+                <p>{desc}</p>
+              </div>
+            </article>
+
+            <article></article>
+            <article id="edit_profile">
+              <div>
+                <h2>Profile Information</h2>
+                <p>Update your personal and farm details</p>
+              </div>
+              <br />
+              <form  id="edit_pnl"  action="">
+
+              
+                  
+                  <label>
+                    <p>Nickname</p>
+                    <input type="text" name="" id="" />
+                  </label>
+
+                  <label>
+                    <p>Origin</p>
+                    <input type="text" name="" id="" />
+                  </label>
+
+                  <label>
+                    <p>Description</p>
+                   <textarea name="" id=""></textarea>
+                  </label>
+
+<button id="edit_btn">Edit Profile</button>
+              </form>
+            </article>
+            
           </section>
         )}
       </section>
