@@ -132,8 +132,39 @@ function MarketPlace() {
   };
 
   const show_pop_up = () => {
-    create_a_market.current.classList.toggle('show')
+    create_a_market.current.classList.toggle('show');
   }
+
+
+  const create_my_marketplace = async(e) => {
+    e.preventDefault();
+    // alert(`${market_name}  -  ${market_desc}`);
+
+    const token = localStorage.getItem("token");
+  
+const res = await fetch(
+  "http://localhost:5000/auth/marketplace",
+  {
+    method: "POST",
+
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+
+    body: JSON.stringify({
+      title: market_name,
+      description: market_desc,
+    }),
+  }
+);
+
+    const data = await res.json();
+    // location.reload();
+
+
+  }
+
 
   useEffect(() => {
     check_for_social_profile();
@@ -147,15 +178,15 @@ function MarketPlace() {
       <section id="main-page">
 
         <section id="save_a_marketplace" ref={create_a_market}>
-          <form action="">
+          <form action="" onSubmit={create_my_marketplace}>
           <span onClick={show_pop_up}><FontAwesomeIcon icon={faClose}/></span>
             <label htmlFor="">
               <p>Title</p>
-              <input type="text" name="" id="" />
+              <input type="text" value={market_name} onChange={(e) => set_market_name(e.target.value)} name="" id="" />
             </label>
             <label htmlFor="">
               <p>Description</p>
-              <input type="text" name="" id="" />
+              <input type="text" name=""  onChange={e => set_market_desc(e.target.value)}  id="" />
             </label>
 
             <button>Create MarketPlace</button>
