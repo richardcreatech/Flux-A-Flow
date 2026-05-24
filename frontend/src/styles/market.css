@@ -1,0 +1,30 @@
+#marketplace_idle{
+    height: 100%;
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#marketplace_idle img{
+    object-fit: cover;
+    width: 90px;
+}
+
+#marketplace_idle #create_a_marketplace{
+    padding: 7px;
+border: none;
+}
+
+#marketplace_idle #create_a_marketplace:hover{
+    transition: all 0.35s linear;
+    background: #000;
+    color: #fff;
+}
+#marketplace_idle #create_a_marketplace:active{
+    transition: all 0.2s linear;
+    background: #e5e5e519;
+    color: #000;
+    border: solid 0.25px;
+}
