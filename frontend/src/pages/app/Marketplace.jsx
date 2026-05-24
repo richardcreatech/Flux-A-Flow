@@ -5,8 +5,10 @@ import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useRef } from "react";
 
 function MarketPlace() {
+  const create_a_market = useRef(null)
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -129,6 +131,10 @@ function MarketPlace() {
     location.reload();
   };
 
+  const show_pop_up = () => {
+    create_a_market.current.classList.toggle('show')
+  }
+
   useEffect(() => {
     check_for_social_profile();
     check_for_token();
@@ -140,9 +146,9 @@ function MarketPlace() {
 
       <section id="main-page">
 
-        <section id="save_a_marketplace">
+        <section id="save_a_marketplace" ref={create_a_market}>
           <form action="">
-          <span><FontAwesomeIcon icon={faClose}/></span>
+          <span onClick={show_pop_up}><FontAwesomeIcon icon={faClose}/></span>
             <label htmlFor="">
               <p>Title</p>
               <input type="text" name="" id="" />
@@ -159,7 +165,7 @@ function MarketPlace() {
         <main id="marketplace_idle">
           <img src={logo} alt="" />
           <p>There are No Marketplaces</p>
-          <br /> <button id="create_a_marketplace">< FontAwesomeIcon icon={faPlus} />Create a Marketplace</button>
+          <br /> <button id="create_a_marketplace" onClick={show_pop_up}>< FontAwesomeIcon icon={faPlus} />Create a Marketplace</button>
         </main>
       </section>
     </main>
