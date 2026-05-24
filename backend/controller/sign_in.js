@@ -1,4 +1,4 @@
-const { Buyers } = require("../model/db");
+const { Farmers } = require("../model/db");
 const jwt = require("jsonwebtoken");
 
 const sign_in = async (req, res) => {
@@ -6,11 +6,11 @@ const sign_in = async (req, res) => {
  
   password = password.trim();
  
-  const buyers = await Buyers.findOne({ email });
+  const farmers = await Farmers.findOne({ email });
 
 
   const token = jwt.sign(
-    { id: buyers._id, email: buyers.email },
+    { id: farmers._id, email: farmers.email },
     "my_secret",
     { expiresIn: "1h" },
   );

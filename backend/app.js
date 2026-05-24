@@ -20,6 +20,7 @@ const path = require("path");
 
 app.use("/auth", router);
 
+
 app.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);
 });

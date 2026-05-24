@@ -1,7 +1,7 @@
-const { Buyers } = require("../model/db");
+const { Farmers } = require("../model/db");
 
 const profile = async (req, res) => {
-  const user = await Buyers.findById(req.user.id).select("-password");
+  const user = await Farmers.findById(req.user.id).select("-password");
   res.json({ user });
 };
 

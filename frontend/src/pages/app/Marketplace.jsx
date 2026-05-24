@@ -4,7 +4,7 @@ import "../../styles/market.css";
 import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function MarketPlace() {
   const [input, setInput] = useState("");
@@ -32,6 +32,10 @@ function MarketPlace() {
     const file = e.target.files[0];
     setProfilePicture(file);
   };
+
+  const [market_name, set_market_name] = useState("");
+  const [market_desc, set_market_desc] = useState("");
+
 
   const check_for_social_profile = async () => {
     const token = localStorage.getItem("token");
@@ -135,6 +139,23 @@ function MarketPlace() {
       <Aside />
 
       <section id="main-page">
+
+        <section id="save_a_marketplace">
+          <form action="">
+          <span><FontAwesomeIcon icon={faClose}/></span>
+            <label htmlFor="">
+              <p>Title</p>
+              <input type="text" name="" id="" />
+            </label>
+            <label htmlFor="">
+              <p>Description</p>
+              <input type="text" name="" id="" />
+            </label>
+
+            <button>Create MarketPlace</button>
+          </form>
+      </section>
+
         <main id="marketplace_idle">
           <img src={logo} alt="" />
           <p>There are No Marketplaces</p>

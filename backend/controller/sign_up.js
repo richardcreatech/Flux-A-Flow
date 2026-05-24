@@ -1,4 +1,4 @@
-const { Buyers } = require("../model/db");
+const { Farmers } = require("../model/db");
 const ejs = require("ejs");
 const templatePath = "./views/emailTemplate.ejs";
 const { sendEmail } = require("../utils/sendEmail");
@@ -11,13 +11,13 @@ const sign_up = async (req, res) => {
     return res.json({ message: "Please fill in all the fields" });
   }
 
-  const new_user = new Buyers({
+  const new_user = new Farmers({
     email,
     full_name,
     password,
   });
 
-  const find_existing_user = await Buyers.findOne({ email: email });
+  const find_existing_user = await Farmers.findOne({ email: email });
 
   if (find_existing_user) {
     return res.json({ error: "User already exists" });

@@ -35,7 +35,7 @@ const marketplaceSchema = new mongoose.Schema(
   {
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Profile",
+      ref: "farmer_profiles",
       required: true,
     },
     title: {
@@ -93,6 +93,8 @@ const profileSchema = new mongoose.Schema(
 
 const Profile = mongoose.model("farmer_profiles", profileSchema);
 
-const Buyers = mongoose.model("buyers", user_schema);
+const Farmers = mongoose.model("farmers", user_schema);
 
-module.exports = { Buyers, Profile };
+const Marketplace = mongoose.model('Marketplace', marketplaceSchema);
+
+module.exports = { Farmers, Profile, Marketplace };

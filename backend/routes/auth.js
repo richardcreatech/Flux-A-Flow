@@ -13,7 +13,7 @@ const { profile } = require("../controller/profile");
 const { Profile } = require("../model/db");
 const { upload_pic } = require("../middleware/multer");
 const { cloudinary } = require("../utils/cloudinary");
-
+const { Marketplace } = require("../model/db");
 
 router.post("/signin", sign_in);
 router.post("/signup", sign_up);
@@ -36,8 +36,8 @@ router.post(
         const result = await cloudinary.uploader.upload(req.file.path);
         profilePicture = result.secure_url;
       }
-          
-      console.log(profilePicture)
+
+      console.log(profilePicture);
 
       const profile = await Profile.create({
         user: userId,
@@ -63,7 +63,6 @@ router.post(
   },
 );
 
-
 router.get("/social-profile", authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
@@ -88,7 +87,6 @@ router.get("/social-profile", authMiddleware, async (req, res) => {
       hasProfile: true,
       profile,
     });
-
   } catch (err) {
     console.log(err);
 
@@ -97,6 +95,37 @@ router.get("/social-profile", authMiddleware, async (req, res) => {
       message: "Server error",
     });
   }
+});
+
+router.post("/marketplace", authMiddleware, async (req, res) => {
+  const userId = req.user.id;
+
+  const { title, description } = req.body;
+
+  const profile = await Profile.findOne({ user: userId });
+
+  if (!profile) {
+    return res.status(404).json({
+      message: "Profile not found",
+    });
+  }
+
+  // Create marketplace
+  const marketplace = await Marketplace.create({
+    owner: profile._id,
+    title,
+    description,
+  });
+
+  // Link marketplace to profile
+  profile.marketplaces.push(marketplace._id);
+
+  await profile.save();
+
+  res.status(201).json({
+    message: "Marketplace created",
+    marketplace,
+  });
 });
 
 module.exports = { router };
