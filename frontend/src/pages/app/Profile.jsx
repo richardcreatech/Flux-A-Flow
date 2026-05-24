@@ -1,21 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faUser,
-  faStore,
-  faSeedling,
-  faBoxOpen,
-  faComments,
-  faTruck,
-  faStar,
-  faGear,
-  faDoorOpen,
-  faBoltLightning,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
 import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
+import "../../styles/profile.css";
 
-function Dashboard() {
+function Profile() {
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -270,4 +260,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Profile;

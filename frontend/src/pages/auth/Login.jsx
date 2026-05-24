@@ -40,7 +40,7 @@ function Login() {
       
       setTimeout(() => {
         localStorage.setItem("token",data.token)
-        location.assign("/main");  
+        location.assign("/profile");  
         setData(null);
       },2000);
 

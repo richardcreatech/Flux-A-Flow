@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Auth from './pages/auth/Auth'
-import Dashboard from './pages/app/Dashboard'
+import Profile from './pages/app/Profile'
+import MarketPlace from './pages/app/Marketplace'
 
 
 
@@ -9,8 +10,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Auth />} />
       <Route path="/login" element={<Auth />} />
-      <Route path="/main" element={<Dashboard />} />
-   
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/marketplace" element={<MarketPlace />} />
     </Routes>
   )
 }
