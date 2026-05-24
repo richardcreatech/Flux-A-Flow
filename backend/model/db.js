@@ -12,36 +12,79 @@ const user_schema = new mongoose.Schema({
   email: String,
 });
 
+const productSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  imageURL: {
+    type: String,
+    default: "",
+  },
+});
+
+const marketplaceSchema = new mongoose.Schema(
+  {
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Profile",
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      trim: true,
+    },
+    products: [productSchema],
+  },
+  {
+    timestamps: true,
+  },
+);
+
 const profileSchema = new mongoose.Schema(
   {
     user: {
       type: String,
       unique: true,
     },
-
     nickname: {
       type: String,
       required: true,
       trim: true,
       maxlength: 50,
     },
-
     description: {
       type: String,
       trim: true,
       maxlength: 500,
     },
-
     originCountry: {
       type: String,
       required: true,
       trim: true,
     },
-
     profilePicture: {
       type: String,
       default: "",
     },
+    marketplaces: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Marketplace",
+      },
+    ],
   },
   {
     timestamps: true,
