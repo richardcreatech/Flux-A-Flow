@@ -9,6 +9,7 @@ import {
   faTruck,
   faStar,
   faGear,
+  faChartDiagram,
   faDoorOpen,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -27,7 +28,7 @@ function Aside() {
 
           <li>
             <Link to="/home">
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faChartDiagram} />
               <small>Home</small>
             </Link>
           </li>
