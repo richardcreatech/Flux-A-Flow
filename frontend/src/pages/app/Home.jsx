@@ -105,7 +105,7 @@ function Home() {
       <Aside />
 
       <section id="main-page">
-        <div className="hm">
+        <div className="hm" >
           <header className="hm-hero">
             <p className="hm-eyebrow">{greet}</p>
             <h1 className="hm-title">

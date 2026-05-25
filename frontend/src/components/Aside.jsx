@@ -24,6 +24,14 @@ function Aside() {
 
       <nav>
         <ul>
+
+          <li>
+            <Link to="/home">
+              <FontAwesomeIcon icon={faUser} />
+              <small>Home</small>
+            </Link>
+          </li>
+          
           <li>
             <Link to="/profile">
               <FontAwesomeIcon icon={faUser} />
