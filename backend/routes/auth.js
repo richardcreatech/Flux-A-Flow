@@ -14,11 +14,33 @@ const { Profile } = require("../model/db");
 const { upload_pic } = require("../middleware/multer");
 const { cloudinary } = require("../utils/cloudinary");
 const { Marketplace } = require("../model/db");
+const { Farmers } = require("../model/db");
 
 router.post("/signin", sign_in);
 router.post("/signup", sign_up);
 
 router.get("/profile", authMiddleware, profile);
+
+// GET /auth/home — homepage payload (user + dashboard stats).
+// Stats are placeholders today; swap to real aggregates when the
+// Orders / Reviews / Products collections come online.
+router.get("/home", authMiddleware, async (req, res) => {
+  try {
+    const user = await Farmers.findById(req.user.id).select("-password");
+    res.json({
+      user,
+      stats: {
+        orders: { value: 24, delta: "+3 this week" },
+        reviews: { value: 4.1, delta: "8 verified" },
+        products: { value: 12, delta: "2 low stock" },
+        messages: { value: 3, delta: "unread" },
+      },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to load home" });
+  }
+});
 
 router.post(
   "/upload-profile",
