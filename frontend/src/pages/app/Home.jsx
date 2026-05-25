@@ -69,7 +69,7 @@ function Home() {
     {
       key: "orders",
       icon: faBoxOpen,
-      label: "Orders",
+      label: "Products",
       value: stats.orders.value,
       hint: stats.orders.delta,
       to: "/marketplace",
@@ -182,7 +182,7 @@ function Home() {
                   onClick={() => navigate("/marketplace")}
                 >
                   <FontAwesomeIcon icon={faSeedling} />
-                  List a product
+                  Create a Market
                 </button>
                 <button
                   className="hm-action"
