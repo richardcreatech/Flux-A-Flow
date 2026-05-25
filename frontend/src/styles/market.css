@@ -12,17 +12,17 @@
   width: 90px;
 }
 
-#marketplace_idle #create_a_marketplace {
+#marketplace_idle #create_a_marketplace, .create_a_marketplace {
   padding: 7px;
-  border: none;
+  border: solid 0.25px transparent;
 }
 
-#marketplace_idle #create_a_marketplace:hover {
+#marketplace_idle #create_a_marketplace:hover, .create_a_marketplace:active  {
   transition: all 0.35s linear;
   background: #000;
   color: #fff;
 }
-#marketplace_idle #create_a_marketplace:active {
+#marketplace_idle #create_a_marketplace:active,.create_a_marketplace:hover {
   transition: all 0.2s linear;
   background: #e5e5e519;
   color: #000;
@@ -30,9 +30,8 @@
 }
 
 #save_a_marketplace {
-    display: none;
+  display: none;
 }
-
 
 #save_a_marketplace.show {
   position: fixed;
@@ -45,15 +44,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-   
+
   inset: 0;
   backdrop-filter: blur(8px);
   background: rgba(0, 0, 0, 0.2);
 
   z-index: 1000;
 }
-
-
 
 #save_a_marketplace.show form {
   border: solid 0.25px;
@@ -75,14 +72,12 @@
   animation: popup 0.25s ease;
 }
 
-
 #save_a_marketplace.show span {
-    opacity: 1;
+  opacity: 1;
 }
 
-
 #save_a_marketplace.show span:hover {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 #save_a_marketplace.show label {
@@ -159,4 +154,83 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+#all_my_marketplaces {
+  display: grid;
+  gap: 1.25rem;
+  padding: 2rem;
+  height: 100%;
+  overflow: hidden;
+}
+
+#all_my_marketplaces .marketplace_card {
+  background: #111;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  /* min-height: 340px; */
+
+  display: flex;
+
+  flex-direction: column;
+
+  transition: 0.25s;
+
+  cursor: pointer;
+}
+
+#all_my_marketplaces .market_info {
+  padding: 1.5rem;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+}
+
+#all_my_marketplaces .market_info span {
+  width: max-content;
+
+  padding: 0.5rem 1rem;
+
+  border-radius: 999px;
+
+  background: #3d9a5f;
+
+  color: white;
+}
+
+#all_my_marketplaces .market_info h2 {
+  margin: 0;
+
+  font-size: 2rem;
+}
+
+#all_my_marketplaces .market_info p {
+  opacity: 0.35;
+
+  line-height: 1.5;
+}
+
+#all_my_marketplaces .market_info footer {
+  margin-top: auto;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+#all_my_marketplaces .market_info button {
+  padding: 0.8rem 1rem;
+
+  border: none;
+
+  border-radius: 12px;
+
+  cursor: pointer;
 }

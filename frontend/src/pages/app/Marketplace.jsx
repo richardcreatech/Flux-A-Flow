@@ -232,14 +232,34 @@ function MarketPlace() {
             </button>
           </main>
         )}
-
         {my_markets.length != 0 && (
+          <button className="create_a_marketplace" onClick={show_pop_up}>
+            <FontAwesomeIcon icon={faPlus} />
+            Create a Marketplace
+          </button>
+        )}
+
+        {my_markets.length !== 0 && (
           <section id="all_my_marketplaces">
-            <article>
-              {my_markets?.map((i) => (
-                <p>{i["title"]}</p>
-              ))}
-            </article>
+            {my_markets.map((market) => (
+              <article className="marketplace_card" key={market._id}>
+                <div className="market_info">
+                  <div className="about_market">
+                    <h2>{market.title}</h2>
+
+                    <p>{market.description || "No description"}</p>
+                  </div>
+                  <footer>
+                    <small>
+                      {market.products?.length || 0}
+                      Products
+                    </small>
+
+                    <button>Open →</button>
+                  </footer>
+                </div>
+              </article>
+            ))}
           </section>
         )}
       </section>
