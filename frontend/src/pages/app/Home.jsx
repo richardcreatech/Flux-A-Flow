@@ -85,7 +85,7 @@ function Home() {
     {
       key: "products",
       icon: faSeedling,
-      label: "Products",
+      label: "MarketPlace",
       value: stats.products.value,
       hint: stats.products.delta,
       to: "/marketplace",
@@ -145,8 +145,8 @@ function Home() {
           <section className="hm-panels">
             <article className="hm-panel hm-panel-wide">
               <header>
-                <h2>Today&rsquo;s harvest</h2>
-                <span className="hm-pill">Live</span>
+                <h2>Today's harvest</h2>
+              
               </header>
               <ul className="hm-feed">
                 <li>
