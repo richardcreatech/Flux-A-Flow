@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faHouse,
   faUser,
   faStore,
   faSeedling,
@@ -24,6 +25,13 @@ function Aside() {
 
       <nav>
         <ul>
+          <li>
+            <Link to="/home">
+              <FontAwesomeIcon icon={faHouse} />
+              <small>Home</small>
+            </Link>
+          </li>
+
           <li>
             <Link to="/profile">
               <FontAwesomeIcon icon={faUser} />
@@ -67,7 +75,7 @@ function Aside() {
           </li>
 
           <li>
-            <Link to="/">
+            <Link to="/reviews">
               <FontAwesomeIcon icon={faStar} />
               <small>Reviews</small>
             </Link>
