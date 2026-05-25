@@ -39,6 +39,13 @@ function Aside() {
           </li>
 
           <li>
+            <Link to="/reviews">
+              <FontAwesomeIcon icon={faStar} />
+              <small>Reviews</small>
+            </Link>
+          </li>
+
+          <li>
             <Link to="/">
               <FontAwesomeIcon icon={faSeedling} />
               <small>Products</small>
@@ -63,13 +70,6 @@ function Aside() {
             <Link to="/">
               <FontAwesomeIcon icon={faTruck} />
               <small>Delivery Settings</small>
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/">
-              <FontAwesomeIcon icon={faStar} />
-              <small>Reviews</small>
             </Link>
           </li>
 
