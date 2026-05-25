@@ -128,4 +128,26 @@ router.post("/marketplace", authMiddleware, async (req, res) => {
   });
 });
 
+router.get("/marketplaces", authMiddleware, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.user.id,
+    }).populate("marketplaces");
+
+    if (!profile) {
+      return res.status(404).json({
+        message: "Profile not found",
+      });
+    }
+
+    res.json({
+      marketplaces: profile.marketplaces,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
 module.exports = { router };

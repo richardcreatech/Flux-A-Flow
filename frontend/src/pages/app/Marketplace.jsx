@@ -6,9 +6,16 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRef } from "react";
+import io from "socket.io-client";
+
+// const socket = io("http://localhost:5000", {
+//   auth: {
+//     token: localStorage.getItem("token"),
+//   },
+// });
 
 function MarketPlace() {
-  const create_a_market = useRef(null)
+  const create_a_market = useRef(null);
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -17,6 +24,8 @@ function MarketPlace() {
   const [desc, setDesc] = useState("");
   const [origin, setOrigin] = useState("");
   const [hasSocialProfile, setHasSocialProfile] = useState(false);
+
+  const [my_markets, set_my_markets] = useState([]);
 
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
@@ -37,7 +46,6 @@ function MarketPlace() {
 
   const [market_name, set_market_name] = useState("");
   const [market_desc, set_market_desc] = useState("");
-
 
   const check_for_social_profile = async () => {
     const token = localStorage.getItem("token");
@@ -132,43 +140,51 @@ function MarketPlace() {
   };
 
   const show_pop_up = () => {
-    create_a_market.current.classList.toggle('show');
-  }
+    create_a_market.current.classList.toggle("show");
+  };
 
+  const loadMarkets = async () => {
+    const token = localStorage.getItem("token");
 
-  const create_my_marketplace = async(e) => {
+    const res = await fetch("http://localhost:5000/auth/marketplaces", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    set_my_markets(data.marketplaces);
+  };
+
+  const create_my_marketplace = async (e) => {
     e.preventDefault();
     // alert(`${market_name}  -  ${market_desc}`);
 
     const token = localStorage.getItem("token");
-  
-const res = await fetch(
-  "http://localhost:5000/auth/marketplace",
-  {
-    method: "POST",
 
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    const res = await fetch("http://localhost:5000/auth/marketplace", {
+      method: "POST",
 
-    body: JSON.stringify({
-      title: market_name,
-      description: market_desc,
-    }),
-  }
-);
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        title: market_name,
+        description: market_desc,
+      }),
+    });
 
     const data = await res.json();
-    // location.reload();
-
-
-  }
-
+    location.reload();
+  };
 
   useEffect(() => {
     check_for_social_profile();
     check_for_token();
+    loadMarkets();
   }, []);
 
   return (
@@ -176,28 +192,56 @@ const res = await fetch(
       <Aside />
 
       <section id="main-page">
-
         <section id="save_a_marketplace" ref={create_a_market}>
           <form action="" onSubmit={create_my_marketplace}>
-          <span onClick={show_pop_up}><FontAwesomeIcon icon={faClose}/></span>
+            <span onClick={show_pop_up}>
+              <FontAwesomeIcon icon={faClose} />
+            </span>
             <label htmlFor="">
               <p>Title</p>
-              <input type="text" value={market_name} onChange={(e) => set_market_name(e.target.value)} name="" id="" />
+              <input
+                type="text"
+                value={market_name}
+                onChange={(e) => set_market_name(e.target.value)}
+                name=""
+                id=""
+              />
             </label>
             <label htmlFor="">
               <p>Description</p>
-              <input type="text" name=""  onChange={e => set_market_desc(e.target.value)}  id="" />
+              <input
+                type="text"
+                name=""
+                onChange={(e) => set_market_desc(e.target.value)}
+                id=""
+              />
             </label>
 
             <button>Create MarketPlace</button>
           </form>
-      </section>
+        </section>
 
-        <main id="marketplace_idle">
-          <img src={logo} alt="" />
-          <p>There are No Marketplaces</p>
-          <br /> <button id="create_a_marketplace" onClick={show_pop_up}>< FontAwesomeIcon icon={faPlus} />Create a Marketplace</button>
-        </main>
+        {my_markets.length == 0 && (
+          <main id="marketplace_idle">
+            <img src={logo} alt="" />
+            <p>There are No Marketplaces</p>
+            <br />{" "}
+            <button id="create_a_marketplace" onClick={show_pop_up}>
+              <FontAwesomeIcon icon={faPlus} />
+              Create a Marketplace
+            </button>
+          </main>
+        )}
+
+        {my_markets.length != 0 && (
+          <section id="all_my_marketplaces">
+            <article>
+              {my_markets?.map((i) => (
+                <p>{i["title"]}</p>
+              ))}
+            </article>
+          </section>
+        )}
       </section>
     </main>
   );
