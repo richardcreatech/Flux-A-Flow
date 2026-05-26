@@ -173,6 +173,11 @@
   padding: 9px;
 }
 
+#all_my_marketplaces .marketplace_card:nth-of-type(1) {
+  grid-column: 1 / span 2;
+}
+
+
 #all_my_marketplaces .marketplace_card .market_info {
   flex-direction: column;
   display: flex;
