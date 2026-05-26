@@ -181,6 +181,10 @@ function MarketPlace() {
     location.reload();
   };
 
+  const open_new_page = async (arg) => {
+   location.assign(`marketplace/${arg}`)
+ } 
+
   useEffect(() => {
     check_for_social_profile();
     check_for_token();
@@ -251,7 +255,7 @@ function MarketPlace() {
                   </div>
                   <footer>
 
-                    <button>Open →</button>
+                    <button onClick={() => open_new_page(market._id)}>Open →</button>
                     <small>
                       {market.products?.length || 0}
                       {" "}Products

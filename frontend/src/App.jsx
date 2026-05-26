@@ -4,6 +4,7 @@ import Profile from './pages/app/Profile'
 import MarketPlace from './pages/app/Marketplace'
 import Reviews from './pages/app/Reviews'
 import Home from './pages/app/Home'
+import SingleMarket from './pages/app/SingleMarket'
 
 
 
@@ -15,6 +16,7 @@ function App() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/home" element={<Home />} />
       <Route path="/marketplace" element={<MarketPlace />} />
+      <Route path="/marketplace/:id" element={<SingleMarket />} />
       <Route path="/reviews" element={<Reviews />} />
     </Routes>
   )
