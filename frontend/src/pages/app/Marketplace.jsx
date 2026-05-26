@@ -250,12 +250,12 @@ function MarketPlace() {
                     <p>{market.description || "No description"}</p>
                   </div>
                   <footer>
-                    <small>
-                      {market.products?.length || 0}
-                      Products
-                    </small>
 
                     <button>Open →</button>
+                    <small>
+                      {market.products?.length || 0}
+                      {" "}Products
+                    </small>
                   </footer>
                 </div>
               </article>
