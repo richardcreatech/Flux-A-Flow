@@ -150,4 +150,94 @@ router.get("/marketplaces", authMiddleware, async (req, res) => {
   }
 });
 
+router.get(
+  "/marketplace/:id/products",
+
+  authMiddleware,
+
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const market = await Marketplace.findById(id);
+
+      if (!market) {
+        return res.status(404).json({
+          message: "Marketplace not found",
+        });
+      }
+
+      res.json({
+        title: market.title,
+        desc:market.description,
+        products: market.products,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: err.message,
+      });
+    }
+  },
+);
+
+router.post(
+  "/marketplace/:id/product",
+
+  authMiddleware,
+
+  upload_pic.single("imageURL"),
+
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const { name, price, quantity } = req.body;
+
+      if (!name || !price || !quantity) {
+        return res.status(400).json({
+          message: "Missing fields",
+        });
+      }
+
+      let prodPicture = "";
+
+      if (req.file) {
+        const result = await cloudinary.uploader.upload(req.file.path);
+
+        prodPicture = result.secure_url;
+      }
+
+      const market = await Marketplace.findById(id);
+
+      if (!market) {
+        return res.status(404).json({
+          message: "Marketplace not found",
+        });
+      }
+
+      market.products.push({
+        name,
+
+        price: Number(price),
+
+        quantity: Number(quantity),
+
+        imageURL: prodPicture,
+      });
+
+      await market.save();
+
+      res.status(201).json({
+        message: "Product added",
+
+        products: market.products,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: err.message,
+      });
+    }
+  },
+);
+
 module.exports = { router };

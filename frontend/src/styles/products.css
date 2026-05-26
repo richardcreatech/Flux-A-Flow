@@ -2,8 +2,112 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem;
+  padding: 12px;
   background: #f8fafc;
+}
+
+#current_market #create_a_product {
+  display: none;
+}
+
+#current_market #create_a_product.show {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+  top: 0;
+  left: 0;
+  border: #000 solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+#current_market #create_a_product.show form {
+  border: solid 0.25px;
+  border-radius: 0.25rem;
+  background: #fff;
+  box-shadow: 0 0 2rem #00000029;
+  width: min(500px, 90%);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  background: white;
+
+  border-radius: 1rem;
+
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.12);
+
+  animation: popup 0.25s ease;
+}
+
+#my_product_image_upload {
+  width: 100%;
+}
+
+#my_product_image_upload #product_preview {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1rem;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
+  background: #fff;
+}
+
+#my_product_image_upload {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+#my_product_image_upload img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+#my_product_image_upload .upload_box {
+  flex: 1;
+
+  height: 180px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+
+  cursor: pointer;
+
+  background: #f8fafc;
+}
+
+#product_upload {
+  display: none;
+}
+
+@keyframes popup {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 #current_market #about_marketPlace {
@@ -27,10 +131,9 @@
 #current_market #my_market_logo {
   width: 70px;
   height: 70px;
-
+  border: solid black;
   display: grid;
   place-items: center;
-
   border-radius: 5px;
 
   background: linear-gradient(135deg, #6366f1);
@@ -49,22 +152,12 @@
   /* border: solid; */
 }
 
-
-
 #current_market #gen_market_info #no_of_prods {
   width: 100%;
-  padding: 9px;
-}
-
-#current_market #gen_market_info #no_of_prods {
-  min-width: 180px;
-
   padding: 1rem 1.25rem;
-
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 18px;
-
+  border-radius: 4px;
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
@@ -91,7 +184,7 @@
   place-items: center;
 
   border-radius: 10px;
-    color: #8b5cf6;
+  color: #8b5cf6;
   background: #eef2ff;
   margin-bottom: 0.5rem;
 }
@@ -121,17 +214,16 @@
   width: 50%;
   border: none;
   border-radius: 5px;
-  padding:  7px;
+  padding: 7px;
   font-size: 12px;
   font-weight: 400;
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
 #current_market #gen_market_info #my_market_panel button:first-child {
   background: #111827;
-  color: white;
+  color: #fff;
 }
 
 #current_market #gen_market_info #my_market_panel button:first-child:hover {
@@ -140,9 +232,200 @@
 
 /* background: #eee; */
 #current_market #gen_market_info #my_market_panel button:last-child {
-    border: solid 0.25px transparent;
+  border: solid 0.25px transparent;
 }
 
 #current_market #gen_market_info #my_market_panel button:last-child:hover {
-  border: solid 0.25px ;
+  color: rgba(0, 0, 0, 0.322);
+  border: solid 0.25px;
+}
+
+#current_market #products_in_my_market {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+#current_market .product {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+#current_market .product img {
+  width: 100%;
+  height: 220px;
+
+  object-fit: cover;
+  display: block;
+}
+
+#current_market .product_info {
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+#current_market .product_info h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+#current_market .product_info > p {
+  color: #4f46e5;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+#current_market .product_info label {
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+  justify-content: space-between;
+}
+
+#current_market .product_info small {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+#current_market .product_info input {
+  padding: 0.8rem;
+  border: 1px solid #dbe3ee;
+  border-radius: 12px;
+  outline: none;
+}
+
+#current_market .product_info input:focus {
+  border-color: #6366f1;
+}
+
+#current_market .product_buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+#current_market .product_buttons button:first-child {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 4px;
+  background: #00ff9d38;
+  color: #000000;
+  cursor: pointer;
+  outline: solid black 0.25px;
+}
+
+#current_market .product_buttons button:last-child {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 7px;
+  border: none;
+  border-radius: 2px;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+}
+
+#current_market #all_products header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+#current_market #search_prod {
+  width: 30p;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3px 7px;
+  background: #f8fafc;
+  border: 1px solid #454e5b;
+  border-radius: 14px;
+}
+
+#current_market #search_prod svg {
+  color: #94a3b8;
+}
+
+#current_market #search_prod input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.95rem;
+}
+
+#current_market #view_switch {
+  display: flex;
+  gap: 0.5rem;
+
+  padding: 0.35rem;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+#current_market #view_switch svg {
+  width: 18px;
+  height: 18px;
+
+  padding: 0.65rem;
+
+  border-radius: 8px;
+
+  color: #64748b;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+#current_market #view_switch svg:first-child {
+  background: white;
+  color: #111827;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#current_market #view_switch svg:hover {
+  background: white;
+  color: #111827;
+}
+
+#empty_market {
+  text-align: center;
+  color: #1118272f;
+}
+
+#my_product_info_typed{
+  display: grid;
+  gap: 4px;
+  grid-template-columns: auto auto;
+}
+
+#product_quantity{
+  margin-top: 4px;
+  grid-column: 1 / span 2;
+}
+
+#create_this_prod{
+  border: none;
+  padding: 7px 5px;
 }
