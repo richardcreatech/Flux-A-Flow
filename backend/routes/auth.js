@@ -134,7 +134,7 @@ router.patch("/profile", authMiddleware, async (req, res) => {
   },
 );
 
-router.patch("/profile/picture",  authMiddleware, upload_pic.single("profilePicture"),  async (req, res) => {
+router.patch("/profilePicture",  authMiddleware, upload_pic.single("profilePicture"),  async (req, res) => {
     try {
       const profile = await Profile.findOne({
         user: req.user.id,

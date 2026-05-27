@@ -18,10 +18,51 @@ function Profile() {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
 
-  const [edit_nickname, set_edit_nickname] = useState("")
-  const [edit_desc, set_edit_desc] = useState("")
-  const [edit_origin, set_edit_origin] = useState("")
+  const [edit_nickname, set_edit_nickname] = useState("");
+  const [edit_desc, set_edit_desc] = useState("");
+  const [edit_origin, set_edit_origin] = useState("");
 
+  const edit_my_profile = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://localhost:5000/auth/profile", {
+      method: "PATCH",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        nickname: edit_nickname,
+        description: edit_desc,
+        originCountry: edit_origin,
+      }),
+    });
+    const data = await res.json();
+    location.reload()
+  };
+
+  const edit_profile_pic = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    const form = new FormData();
+
+    form.append("profilePicture", file);
+
+    const res = await fetch("http://localhost:5000/auth/profilePicture", {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: form,
+    });
+
+    const data = await res.json();
+    location.reload()
+  };
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -230,7 +271,7 @@ function Profile() {
                 onChange={handleImageChange}
               />
 
-              <button>Save Changes</button>
+              <button onClick={edit_profile_pic}>Save Changes</button>
             </article>
 
             <article id="edit_profile">
@@ -239,20 +280,41 @@ function Profile() {
                 <p>Update your personal and farm details</p>
               </div>
               <br />
-              <form id="edit_pnl" action="">
+              <form
+                id="edit_pnl"
+                action=""
+                onSubmit={(e) => edit_my_profile(e)}
+              >
                 <label>
                   <p>Nickname</p>
-                  <input type="text" value={edit_nickname} onChange={(e) => set_edit_nickname(e.target.value)} name="" id="" />
+                  <input
+                    type="text"
+                    value={edit_nickname}
+                    onChange={(e) => set_edit_nickname(e.target.value)}
+                    name=""
+                    id=""
+                  />
                 </label>
 
                 <label>
                   <p>Origin</p>
-                  <input value={edit_origin} type="text" onChange={(e) => set_edit_origin(e.target.value)} name="" id="" />
+                  <input
+                    value={edit_origin}
+                    type="text"
+                    onChange={(e) => set_edit_origin(e.target.value)}
+                    name=""
+                    id=""
+                  />
                 </label>
 
                 <label>
                   <p>Description</p>
-                  <textarea name="" value={edit_desc} id="" onChange={(e) => set_edit_desc(e.target.value)}></textarea>
+                  <textarea
+                    name=""
+                    value={edit_desc}
+                    id=""
+                    onChange={(e) => set_edit_desc(e.target.value)}
+                  ></textarea>
                 </label>
 
                 <button id="edit_btn">Edit Profile</button>
