@@ -159,7 +159,7 @@ function SingleMarket() {
               <FontAwesomeIcon icon={faBagShopping} />
             </span>
 
-            <h3>3000</h3>
+            <h3>{my_products.length }</h3>
             <p>Products</p>
             <p>Total in Market</p>
           </div>
