@@ -18,6 +18,11 @@ function Profile() {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
 
+  const [edit_nickname, set_edit_nickname] = useState("")
+  const [edit_desc, set_edit_desc] = useState("")
+  const [edit_origin, set_edit_origin] = useState("")
+
+
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
 
@@ -237,17 +242,17 @@ function Profile() {
               <form id="edit_pnl" action="">
                 <label>
                   <p>Nickname</p>
-                  <input type="text" name="" id="" />
+                  <input type="text" value={edit_nickname} onChange={(e) => set_edit_nickname(e.target.value)} name="" id="" />
                 </label>
 
                 <label>
                   <p>Origin</p>
-                  <input type="text" name="" id="" />
+                  <input value={edit_origin} type="text" onChange={(e) => set_edit_origin(e.target.value)} name="" id="" />
                 </label>
 
                 <label>
                   <p>Description</p>
-                  <textarea name="" id=""></textarea>
+                  <textarea name="" value={edit_desc} id="" onChange={(e) => set_edit_desc(e.target.value)}></textarea>
                 </label>
 
                 <button id="edit_btn">Edit Profile</button>

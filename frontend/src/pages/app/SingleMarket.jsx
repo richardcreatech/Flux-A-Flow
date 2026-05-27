@@ -16,8 +16,8 @@ import "../../styles/products.css";
 function SingleMarket() {
   const create_a_prod = useRef(null);
   const { id } = useParams();
-  const [market_name, set_market_name] = useState("")
-  const [market_des, set_market_des] = useState("")
+  const [market_name, set_market_name] = useState("");
+  const [market_des, set_market_des] = useState("");
   const [my_products, set_my_products] = useState([]);
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
@@ -25,6 +25,18 @@ function SingleMarket() {
   const [product_price, setProductPrice] = useState("");
   const [product_quantity, setProductQuantity] = useState("");
   const [product_image_url, setImageUrl] = useState("");
+  const [no_of_prods, setNoOfProds] = useState(0);
+
+  const calculate_no_of_prods = () => {
+    let total = 0;
+
+    for (let i = 0; i < my_products.length; i++) {
+      total = total + Number(my_products[i].quantity);
+    }
+
+    setNoOfProds(total);
+  };
+  // calculate_no_of_prods();
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -79,7 +91,7 @@ function SingleMarket() {
 
     const data = await res.json();
 
-    set_market_name(data.title)
+    set_market_name(data.title);
     set_market_des(data.desc);
     set_my_products(data.products);
   };
@@ -89,8 +101,11 @@ function SingleMarket() {
   };
 
   useEffect(() => {
+    calculate_no_of_prods()
     loadProducts();
-  }, []);
+  }, [my_products]);
+
+
 
   return (
     <main id="current_market">
@@ -147,9 +162,7 @@ function SingleMarket() {
           <span id="my_market_logo">{market_name[0]}</span>
           <div id="market_text">
             <h2>{market_name}</h2>
-            <p>
-              {market_des}
-            </p>
+            <p>{market_des}</p>
           </div>
         </div>
 
@@ -159,7 +172,7 @@ function SingleMarket() {
               <FontAwesomeIcon icon={faBagShopping} />
             </span>
 
-            <h3>{my_products.length }</h3>
+            <h3>{no_of_prods}</h3>
             <p>Products</p>
             <p>Total in Market</p>
           </div>
@@ -194,11 +207,7 @@ function SingleMarket() {
           <main id="products_in_my_market">
             {my_products.map((i) => (
               <article className="product">
-                <img
-                  src={i["imageURL"]}
-                  alt=""
-                  width={50}
-                />
+                <img src={i["imageURL"]} alt="" width={50} />
                 <div className="product_info">
                   <h2>{i["name"]}</h2>
                   <p>{i["price"]}</p>

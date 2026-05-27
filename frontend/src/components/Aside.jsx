@@ -75,19 +75,6 @@ function Aside() {
             </Link>
           </li>
 
-          <li>
-            <Link to="/">
-              <FontAwesomeIcon icon={faTruck} />
-              <small>Delivery Settings</small>
-            </Link>
-          </li>
-
-          <li>
-            <Link to="/">
-              <FontAwesomeIcon icon={faGear} />
-              <small>Settings</small>
-            </Link>
-          </li>
         </ul>
       </nav>
       <hr />

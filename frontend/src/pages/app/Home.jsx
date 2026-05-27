@@ -89,15 +89,7 @@ function Home() {
       value: stats.products.value,
       hint: stats.products.delta,
       to: "/marketplace",
-    },
-    {
-      key: "messages",
-      icon: faComments,
-      label: "Messages",
-      value: stats.messages.value,
-      hint: stats.messages.delta,
-      to: "/",
-    },
+    }
   ];
 
   return (
@@ -112,7 +104,7 @@ function Home() {
               Welcome back, <span className="hm-name">{firstName}</span>
               <span className="hm-wave" aria-hidden="true"></span>
             </h1>
-            <p className="hm-sub">Here&rsquo;s how your farm is doing today.</p>
+            <p className="hm-sub">Here's how your farm is doing today.</p>
           </header>
 
           <ul className="hm-stats">

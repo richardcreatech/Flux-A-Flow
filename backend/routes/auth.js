@@ -20,11 +20,7 @@ router.post("/signup", sign_up);
 
 router.get("/profile", authMiddleware, profile);
 
-router.post(
-  "/upload-profile",
-  authMiddleware,
-  upload_pic.single("profile_picture"),
-  async (req, res) => {
+router.post("/upload-profile", authMiddleware, upload_pic.single("profile_picture"), async (req, res) => {
     try {
       const userId = req.user.id;
 
@@ -97,6 +93,83 @@ router.get("/social-profile", authMiddleware, async (req, res) => {
   }
 });
 
+router.patch("/profile", authMiddleware, async (req, res) => {
+    try {
+      const profile = await Profile.findOne({
+        user: req.user.id,
+      });
+
+      if (!profile) {
+        return res.status(404).json({
+          message: "Profile not found",
+        });
+      }
+
+      const {
+        nickname,
+
+        description,
+
+        originCountry,
+      } = req.body;
+
+      if (nickname) profile.nickname = nickname;
+
+      if (description) profile.description = description;
+
+      if (originCountry) profile.originCountry = originCountry;
+
+      await profile.save();
+
+      res.json({
+        message: "Profile updated",
+
+        profile,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: err.message,
+      });
+    }
+  },
+);
+
+router.patch("/profile/picture",  authMiddleware, upload_pic.single("profilePicture"),  async (req, res) => {
+    try {
+      const profile = await Profile.findOne({
+        user: req.user.id,
+      });
+
+      if (!profile) {
+        return res.status(404).json({
+          message: "Profile not found",
+        });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({
+          message: "No image uploaded",
+        });
+      }
+
+      const result = await cloudinary.uploader.upload(req.file.path);
+
+      profile.profilePicture = result.secure_url;
+
+      await profile.save();
+
+      res.json({
+        message: "Picture updated",
+
+        picture: result.secure_url,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: err.message,
+      });
+    }
+  },
+);
 router.post("/marketplace", authMiddleware, async (req, res) => {
   const userId = req.user.id;
 
@@ -150,12 +223,7 @@ router.get("/marketplaces", authMiddleware, async (req, res) => {
   }
 });
 
-router.get(
-  "/marketplace/:id/products",
-
-  authMiddleware,
-
-  async (req, res) => {
+router.get( "/marketplace/:id/products", authMiddleware, async (req, res) => {
     try {
       const { id } = req.params;
 
@@ -169,7 +237,7 @@ router.get(
 
       res.json({
         title: market.title,
-        desc:market.description,
+        desc: market.description,
         products: market.products,
       });
     } catch (err) {
@@ -180,14 +248,7 @@ router.get(
   },
 );
 
-router.post(
-  "/marketplace/:id/product",
-
-  authMiddleware,
-
-  upload_pic.single("imageURL"),
-
-  async (req, res) => {
+router.post("/marketplace/:id/product", authMiddleware, upload_pic.single("imageURL"), async (req, res) => {
     try {
       const { id } = req.params;
 
