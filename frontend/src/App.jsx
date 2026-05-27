@@ -1,12 +1,11 @@
-import { Routes, Route } from 'react-router-dom'
-import Auth from './pages/auth/Auth'
-import Profile from './pages/app/Profile'
-import MarketPlace from './pages/app/Marketplace'
-import Reviews from './pages/app/Reviews'
-import Home from './pages/app/Home'
-import SingleMarket from './pages/app/SingleMarket'
-
-
+import { Routes, Route } from "react-router-dom";
+import Auth from "./pages/auth/Auth";
+import Profile from "./pages/app/Profile";
+import MarketPlace from "./pages/app/Marketplace";
+import Reviews from "./pages/app/Reviews";
+import Home from "./pages/app/Home";
+import SingleMarket from "./pages/app/SingleMarket";
+import Prod from "./pages/app/Prod";
 
 function App() {
   return (
@@ -17,9 +16,10 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/marketplace" element={<MarketPlace />} />
       <Route path="/marketplace/:id" element={<SingleMarket />} />
+      <Route path="/prod" element={<Prod />} />
       <Route path="/reviews" element={<Reviews />} />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;

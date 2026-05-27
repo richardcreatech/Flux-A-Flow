@@ -55,7 +55,7 @@ function Aside() {
           </li>
 
           <li>
-            <Link to="/">
+            <Link to="/prod">
               <FontAwesomeIcon icon={faSeedling} />
               <small>Products</small>
             </Link>
