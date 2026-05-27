@@ -34,30 +34,7 @@ const path = require("path");
 app.use("/auth", router);
 io.use(socketAuth);
 
-// io.on("connection", (socket) => {
-//   console.log("User Connected");
 
-//   socket.on(
-// "refresh_marketplaces",
-// async () => {
-
-// const profile =
-// await Profile
-// .findOne({
-// user: socket.user.id
-// })
-// .populate(
-// "marketplaces"
-// );
-
-// socket.emit(
-// "marketplaces_updated",
-// profile.marketplaces
-// );
-
-// });
-
-// })
 
 server.listen(PORT, function () {
   console.log(`Listening on port ${PORT}`);

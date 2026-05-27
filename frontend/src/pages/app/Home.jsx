@@ -24,6 +24,27 @@ function Home() {
   const [stats, setStats] = useState(FALLBACK_STATS);
   const [greet, setGreet] = useState("");
 
+  const [dashboard, setDashboard] = useState({
+    marketplaces: 0,
+    products: 0,
+  });
+
+  const loadDashboard = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://localhost:5000/auth/dashboard", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const data = await res.json();
+
+    setDashboard(data);
+  };
+
+  useEffect(() => {
+    loadDashboard();
+  }, []);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -67,10 +88,10 @@ function Home() {
 
   const cards = [
     {
-      key: "orders",
+      key: "products",
       icon: faBoxOpen,
       label: "Products",
-      value: stats.orders.value,
+      value: dashboard.products,
       hint: stats.orders.delta,
       to: "/marketplace",
     },
@@ -83,13 +104,13 @@ function Home() {
       to: "/reviews",
     },
     {
-      key: "products",
+      key: "marketplaces",
       icon: faSeedling,
-      label: "MarketPlace",
-      value: stats.products.value,
+      label: "MarketPlaces",
+      value: dashboard.marketplaces,
       hint: stats.products.delta,
       to: "/marketplace",
-    }
+    },
   ];
 
   return (
@@ -97,7 +118,7 @@ function Home() {
       <Aside />
 
       <section id="main-page">
-        <div className="hm" >
+        <div className="hm">
           <header className="hm-hero">
             <p className="hm-eyebrow">{greet}</p>
             <h1 className="hm-title">
@@ -125,7 +146,7 @@ function Home() {
                 </span>
                 <span className="hm-stat-label">{c.label}</span>
                 <span className="hm-stat-value">{c.value}</span>
-                <span className="hm-stat-hint">{c.hint}</span>
+               
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   className="hm-stat-arrow"
@@ -138,7 +159,6 @@ function Home() {
             <article className="hm-panel hm-panel-wide">
               <header>
                 <h2>Today's harvest</h2>
-              
               </header>
               <ul className="hm-feed">
                 <li>

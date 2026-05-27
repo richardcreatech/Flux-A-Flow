@@ -20,7 +20,45 @@ router.post("/signup", sign_up);
 
 router.get("/profile", authMiddleware, profile);
 
-router.post("/upload-profile", authMiddleware, upload_pic.single("profile_picture"), async (req, res) => {
+router.get("/dashboard", authMiddleware, async (req, res) => {
+    try {
+      const profile = await Profile.findOne({user: req.user.id}).populate("marketplaces");
+
+      if (!profile) {
+        return res.status(404).json({
+          message: "Profile not found",
+        });
+      }
+
+      const no_of_marketplaces = profile.marketplaces.length;
+
+      let total_products = 0;
+
+      for (let i = 0; i < profile.marketplaces.length; i++) {
+        const market = profile.marketplaces[i];
+
+        for (let j = 0; j < market.products.length; j++) {
+          total_products += Number(market.products[j].quantity);
+        }
+      }
+
+      res.json({
+        marketplaces: no_of_marketplaces,
+        products: total_products,
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: err.message,
+      });
+    }
+  },
+);
+
+router.post(
+  "/upload-profile",
+  authMiddleware,
+  upload_pic.single("profile_picture"),
+  async (req, res) => {
     try {
       const userId = req.user.id;
 
@@ -94,47 +132,50 @@ router.get("/social-profile", authMiddleware, async (req, res) => {
 });
 
 router.patch("/profile", authMiddleware, async (req, res) => {
-    try {
-      const profile = await Profile.findOne({
-        user: req.user.id,
-      });
+  try {
+    const profile = await Profile.findOne({
+      user: req.user.id,
+    });
 
-      if (!profile) {
-        return res.status(404).json({
-          message: "Profile not found",
-        });
-      }
-
-      const {
-        nickname,
-
-        description,
-
-        originCountry,
-      } = req.body;
-
-      if (nickname) profile.nickname = nickname;
-
-      if (description) profile.description = description;
-
-      if (originCountry) profile.originCountry = originCountry;
-
-      await profile.save();
-
-      res.json({
-        message: "Profile updated",
-
-        profile,
-      });
-    } catch (err) {
-      res.status(500).json({
-        message: err.message,
+    if (!profile) {
+      return res.status(404).json({
+        message: "Profile not found",
       });
     }
-  },
-);
 
-router.patch("/profilePicture",  authMiddleware, upload_pic.single("profilePicture"),  async (req, res) => {
+    const {
+      nickname,
+
+      description,
+
+      originCountry,
+    } = req.body;
+
+    if (nickname) profile.nickname = nickname;
+
+    if (description) profile.description = description;
+
+    if (originCountry) profile.originCountry = originCountry;
+
+    await profile.save();
+
+    res.json({
+      message: "Profile updated",
+
+      profile,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
+router.patch(
+  "/profilePicture",
+  authMiddleware,
+  upload_pic.single("profilePicture"),
+  async (req, res) => {
     try {
       const profile = await Profile.findOne({
         user: req.user.id,
@@ -223,32 +264,35 @@ router.get("/marketplaces", authMiddleware, async (req, res) => {
   }
 });
 
-router.get( "/marketplace/:id/products", authMiddleware, async (req, res) => {
-    try {
-      const { id } = req.params;
+router.get("/marketplace/:id/products", authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
 
-      const market = await Marketplace.findById(id);
+    const market = await Marketplace.findById(id);
 
-      if (!market) {
-        return res.status(404).json({
-          message: "Marketplace not found",
-        });
-      }
-
-      res.json({
-        title: market.title,
-        desc: market.description,
-        products: market.products,
-      });
-    } catch (err) {
-      res.status(500).json({
-        message: err.message,
+    if (!market) {
+      return res.status(404).json({
+        message: "Marketplace not found",
       });
     }
-  },
-);
 
-router.post("/marketplace/:id/product", authMiddleware, upload_pic.single("imageURL"), async (req, res) => {
+    res.json({
+      title: market.title,
+      desc: market.description,
+      products: market.products,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
+router.post(
+  "/marketplace/:id/product",
+  authMiddleware,
+  upload_pic.single("imageURL"),
+  async (req, res) => {
     try {
       const { id } = req.params;
 
