@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../../styles/disp.css";
 import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
@@ -38,7 +39,7 @@ function Prod() {
 
     const data = await res.json();
     setProds(data.products);
-    console.log(data);
+    console.log(data.products[0]);
   };
 
   const check_for_social_profile = async () => {
@@ -115,11 +116,54 @@ function Prod() {
     loadProducts();
   }, []);
 
+  const heights = [18, 24, 20, 16, 22];
+
   return (
     <main className="page-layout">
       <Aside />
 
-      <section id="main-page"></section>
+      <section id="main-page">
+        <section id="products-page">
+          {prods?.map(
+            ({
+              imageURL,
+
+              marketplaceName,
+
+              name,
+
+              price,
+
+              quantity,
+
+              _id,
+            }) => (
+              <article className="product_card" key={_id}>
+                <img src={imageURL} alt="" />
+
+                <div className="product_content">
+
+                  <h2>{name} <sup>  <span className="marketplace_tag">● {marketplaceName}</span></sup></h2>
+
+                  <div className="product_stats">
+                    <span>
+                      <small>Price</small>
+
+                      <p>₦{price}</p>
+                    </span>
+
+                    <span>
+                      <small>Quantity</small>
+
+                      <p>{quantity}</p>
+                    </span>
+                  </div>
+                </div>
+              </article>
+            ),
+          )}
+        </section>
+      </section>
     </main>
   );
 }
