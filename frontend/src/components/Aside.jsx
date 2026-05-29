@@ -25,14 +25,13 @@ function Aside() {
 
       <nav>
         <ul>
-
           <li>
             <Link to="/home">
               <FontAwesomeIcon icon={faChartDiagram} />
               <small>Home</small>
             </Link>
           </li>
-          
+
           <li>
             <Link to="/profile">
               <FontAwesomeIcon icon={faUser} />
@@ -67,14 +66,6 @@ function Aside() {
               <small>Orders</small>
             </Link>
           </li>
-
-          <li>
-            <Link to="/">
-              <FontAwesomeIcon icon={faComments} />
-              <small>Messages</small>
-            </Link>
-          </li>
-
         </ul>
       </nav>
       <hr />
