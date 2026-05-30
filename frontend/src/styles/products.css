@@ -1,4 +1,4 @@
-#current_market {
+#current_market  {
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -6,11 +6,11 @@
   background: #f8fafc;
 }
 
-#current_market #create_a_product {
+#current_market #create_a_product , #current_market #edit_a_product{
   display: none;
 }
 
-#current_market #create_a_product.show {
+#current_market #create_a_product.show , #current_market #edit_a_product.show {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -27,7 +27,7 @@
   z-index: 1000;
 }
 
-#current_market #create_a_product.show form {
+#current_market #create_a_product.show form, #current_market #edit_a_product.show form {
   border: solid 0.25px;
   border-radius: 0.25rem;
   background: #fff;

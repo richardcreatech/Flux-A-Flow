@@ -24,24 +24,6 @@ function Prod() {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
 
-  const loadProducts = async () => {
-    const token = localStorage.getItem("token");
-
-    const res = await fetch(
-      "http://localhost:5000/auth/all-products",
-
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-
-    const data = await res.json();
-    setProds(data.products);
-    console.log(data.products[0]);
-  };
-
   const check_for_social_profile = async () => {
     const token = localStorage.getItem("token");
 
@@ -110,13 +92,29 @@ function Prod() {
     }
   };
 
+  const loadProducts = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(
+      "http://localhost:5000/auth/all-products",
+
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const data = await res.json();
+    setProds(data.products);
+    console.log(data.products[0]);
+  };
+
   useEffect(() => {
     check_for_token();
     check_for_social_profile();
     loadProducts();
   }, []);
-
-  const heights = [18, 24, 20, 16, 22];
 
   return (
     <main className="page-layout">
@@ -142,8 +140,15 @@ function Prod() {
                 <img src={imageURL} alt="" />
 
                 <div className="product_content">
-
-                  <h2>{name} <sup>  <span className="marketplace_tag">● {marketplaceName}</span></sup></h2>
+                  <h2>
+                    {name}{" "}
+                    <sup>
+                      {" "}
+                      <span className="marketplace_tag">
+                        ● {marketplaceName}
+                      </span>
+                    </sup>
+                  </h2>
 
                   <div className="product_stats">
                     <span>

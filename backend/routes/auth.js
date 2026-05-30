@@ -346,41 +346,170 @@ router.post(
   },
 );
 
-router.get(
-  "/all-products",
+router.get("/all-products", authMiddleware, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.user.id,
+    }).populate("marketplaces");
 
+    if (!profile) {
+      return res.status(404).json({
+        message: "Profile not found",
+      });
+    }
+
+    let all_products = [];
+
+    for (let i = 0; i < profile.marketplaces.length; i++) {
+      const market = profile.marketplaces[i];
+
+      for (let j = 0; j < market.products.length; j++) {
+        all_products.push({
+          ...market.products[j].toObject(),
+
+          marketplaceName: market.title,
+
+          marketplaceId: market._id,
+        });
+      }
+    }
+
+    res.json({
+      products: all_products,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
+router.delete(
+  "/marketplace/:marketId/product/:productId",
   authMiddleware,
-
   async (req, res) => {
     try {
-      const profile = await Profile.findOne({
-        user: req.user.id,
-      }).populate("marketplaces");
+      const {
+        marketId,
 
-      if (!profile) {
+        productId,
+      } = req.params;
+
+      const market = await Marketplace.findById(marketId);
+
+      if (!market) {
         return res.status(404).json({
-          message: "Profile not found",
+          message: "Marketplace not found",
         });
       }
 
-      let all_products = [];
+      market.products = market.products.filter(
+        (product) => product._id.toString() !== productId,
+      );
 
-      for (let i = 0; i < profile.marketplaces.length; i++) {
-        const market = profile.marketplaces[i];
-
-        for (let j = 0; j < market.products.length; j++) {
-          all_products.push({
-            ...market.products[j].toObject(),
-
-            marketplaceName: market.title,
-
-            marketplaceId: market._id,
-          });
-        }
-      }
+      await market.save();
 
       res.json({
-        products: all_products,
+        message: "Product deleted",
+      });
+    } catch (err) {
+      res.status(500).json({
+        message: err.message,
+      });
+    }
+  },
+);
+
+router.delete("/marketplace/:id", authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const profile = await Profile.findOne({
+      user: req.user.id,
+    });
+
+    if (!profile) {
+      return res.status(404).json({
+        message: "Profile not found",
+      });
+    }
+
+    const market = await Marketplace.findById(id);
+
+    if (!market) {
+      return res.status(404).json({
+        message: "Marketplace not found",
+      });
+    }
+
+    profile.marketplaces = profile.marketplaces.filter(
+      (marketId) => marketId.toString() !== id,
+    );
+
+    await profile.save();
+
+    await Marketplace.findByIdAndDelete(id);
+
+    res.json({
+      message: "Marketplace deleted",
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
+router.patch("/marketplace/:marketId/product/:productId",  authMiddleware, upload_pic.single("imageURL"), async (req, res) => {
+    try {
+      const {
+        marketId,
+
+        productId,
+      } = req.params;
+
+      const {
+        name,
+
+        price,
+
+        quantity,
+      } = req.body;
+
+      const market = await Marketplace.findById(marketId);
+
+      if (!market) {
+        return res.status(404).json({
+          message: "Marketplace not found",
+        });
+      }
+
+      const product = market.products.id(productId);
+
+      if (!product) {
+        return res.status(404).json({
+          message: "Product not found",
+        });
+      }
+
+      if (name) product.name = name;
+
+      if (price) product.price = Number(price);
+
+      if (quantity) product.quantity = Number(quantity);
+
+      if (req.file) {
+        const result = await cloudinary.uploader.upload(req.file.path);
+
+        product.imageURL = result.secure_url;
+      }
+
+      await market.save();
+
+      res.json({
+        message: "Product updated",
+
+        product,
       });
     } catch (err) {
       res.status(500).json({

@@ -115,30 +115,6 @@ function MarketPlace() {
     }
   };
 
-  const handleProfileCreation = async (e) => {
-    e.preventDefault();
-
-    const token = localStorage.getItem("token");
-
-    const formData = new FormData();
-    formData.append("profile_picture", profilePicture);
-    formData.append("nickname", nickname);
-    formData.append("description", desc);
-    formData.append("originCountry", origin);
-
-    const res = await fetch("http://localhost:5000/auth/upload-profile", {
-      method: "POST",
-      headers: {
-        // This tells the backend WHO is making the request
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData, // Note: Don't set Content-Type header manually for FormData
-    });
-
-    const data = await res.json();
-    location.reload();
-  };
-
   const show_pop_up = () => {
     create_a_market.current.classList.toggle("show");
   };
@@ -258,7 +234,7 @@ function MarketPlace() {
                     <button onClick={() => open_new_page(market._id)}>Open →</button>
                     <small>
                       {market.products?.length || 0}
-                      {" "}Products
+                      {" "}{market.products?.length > 1 ? "Categories" : "Category" }
                     </small>
                   </footer>
                 </div>

@@ -5,6 +5,7 @@ import {
   faAdd,
   faClose,
   faCompass,
+  faEdit,
   faGridHorizontal,
   faGridVertical,
   faList,
@@ -15,6 +16,7 @@ import "../../styles/products.css";
 
 function SingleMarket() {
   const create_a_prod = useRef(null);
+  const edit_a_prod = useRef(null);
   const { id } = useParams();
   const [market_name, set_market_name] = useState("");
   const [market_des, set_market_des] = useState("");
@@ -22,6 +24,7 @@ function SingleMarket() {
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
   const [product_name, setProductName] = useState("");
+  const [product_id, setProductID] = useState("");
   const [product_price, setProductPrice] = useState("");
   const [product_quantity, setProductQuantity] = useState("");
   const [product_image_url, setImageUrl] = useState("");
@@ -36,7 +39,6 @@ function SingleMarket() {
 
     setNoOfProds(total);
   };
-  // calculate_no_of_prods();
 
   const handleImageChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -46,6 +48,32 @@ function SingleMarket() {
     setFile(selectedFile);
     setImageUrl(selectedFile);
     setPreview(URL.createObjectURL(selectedFile));
+  };
+
+  const deleteMarketplace = async (marketId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(
+        `http://localhost:5000/auth/marketplace/${marketId}`,
+
+        {
+          method: "DELETE",
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await res.json();
+
+      console.log(data);
+
+      location["assign"]("/marketplace");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const addProduct = async (e) => {
@@ -76,6 +104,61 @@ function SingleMarket() {
     console.log(data);
   };
 
+  const editProduct = async (e) => {
+    e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    const formData = new FormData();
+
+    formData.append("name", product_name);
+    formData.append("price", product_price);
+    formData.append("quantity", product_price);
+    formData.append("imageURL", product_image_url);
+
+    const res = await fetch(
+      `http://localhost:5000/auth/marketplace/${id}/product/${product_id}`,
+      {
+        method: "PATCH",
+
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+        body: formData,
+      },
+    );
+
+    const data = await res.json();
+    console.log(data);
+    location.reload();
+  };
+
+  const deleteProduct = async (productId) => {
+    try {
+      // This function deletes the product from the market place database
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(
+        `http://localhost:5000/auth/marketplace/${id}/product/${productId}`,
+
+        {
+          method: "DELETE",
+
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const data = await res.json();
+      location.reload();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const loadProducts = async () => {
     const token = localStorage.getItem("token");
 
@@ -96,22 +179,73 @@ function SingleMarket() {
     set_my_products(data.products);
   };
 
-  const show_pop_up = () => {
+  const show_pop_create_up = () => {
     create_a_prod.current.classList.toggle("show");
   };
 
+  const show_pop_edit_up = (arg) => {
+    edit_a_prod.current.classList.toggle("show");
+    setProductID(arg);
+  };
+
   useEffect(() => {
-    calculate_no_of_prods()
+    calculate_no_of_prods();
     loadProducts();
   }, [my_products]);
-
-
 
   return (
     <main id="current_market">
       <section id="create_a_product" ref={create_a_prod}>
-        <form action="" onSubmit={addProduct}>
-          <span onClick={show_pop_up}>
+        <form action="" onSubmit={(e) => addProduct(e)}>
+          <span onClick={show_pop_create_up}>
+            <FontAwesomeIcon icon={faClose} />
+          </span>
+          <div id="my_product_image_upload">
+            {preview && <img src={preview} alt="Preview" />}
+
+            <label htmlFor="product_upload" className="upload_box">
+              Click to upload image
+            </label>
+
+            <input
+              id="product_upload"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </div>
+          <div id="my_product_info_typed">
+            <input
+              type="text"
+              placeholder="Product Name"
+              value={product_name}
+              onChange={(e) => setProductName(e.target.value)}
+            />
+
+            <input
+              type="number"
+              placeholder="Product Price"
+              value={product_price}
+              onChange={(e) => setProductPrice(e.target.value)}
+            />
+
+            <input
+              type="number"
+              placeholder="Product Quantity"
+              id="product_quantity"
+              value={product_quantity}
+              onChange={(e) => setProductQuantity(e.target.value)}
+            />
+          </div>
+          <button id="create_this_prod" type="submit">
+            Create this Product
+          </button>
+        </form>
+      </section>
+
+      <section id="edit_a_product" ref={edit_a_prod}>
+        <form action="" onSubmit={(e) => editProduct(e)}>
+          <span onClick={show_pop_edit_up}>
             <FontAwesomeIcon icon={faClose} />
           </span>
           <div id="my_product_image_upload">
@@ -178,19 +312,14 @@ function SingleMarket() {
           </div>
 
           <div id="my_market_panel">
-            <button onClick={show_pop_up}>Add Product</button>
-            <button>Delete Market</button>
+            <button onClick={show_pop_create_up}>Add Product</button>
+            <button onClick={() => deleteMarketplace(id)}>Delete Market</button>
           </div>
         </div>
       </section>
 
       <section id="all_products">
         <header>
-          <span id="search_prod">
-            <FontAwesomeIcon icon={faCompass} />
-            <input type="text" name="" placeholder="Search Products" />
-          </span>
-
           <span id="view_switch">
             <FontAwesomeIcon icon={faGridVertical} />
             <FontAwesomeIcon icon={faList} />
@@ -218,12 +347,12 @@ function SingleMarket() {
                   </label>
 
                   <div className="product_buttons">
-                    <button>
+                    <button onClick={() => deleteProduct(i._id)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
-                    <button>
-                      <FontAwesomeIcon icon={faAdd} />
-                      <p>Add Products</p>
+                    <button onClick={() => show_pop_edit_up(i._id)}>
+                      <FontAwesomeIcon icon={faEdit} />
+                      <p>Edit Products</p>
                     </button>
                   </div>
                 </div>
