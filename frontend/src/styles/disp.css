@@ -8,7 +8,7 @@
   overflow: hidden;
 
   /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); */
-    border: solid 0.05px;
+  border: solid 0.05px;
 
   display: flex;
 
@@ -100,4 +100,62 @@
   font-weight: 700;
 
   color: #111;
+}
+
+.prod_page #search_my_prod {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  margin-bottom: 2rem;
+}
+
+
+
+.prod_page #search_my_prod nav {
+  display: flex;
+
+  align-items: center;
+}
+
+.prod_page #search_my_prod nav ul {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  list-style: none;
+
+  padding: 0;
+
+  margin: 0;
+
+  flex-wrap: wrap;
+}
+
+.prod_page #search_my_prod nav ul li{
+
+padding:.7rem 1rem;
+
+border-radius:999px;
+
+background:#f3f4f6;
+
+cursor:pointer;
+
+white-space:nowrap;
+
+transition:.2s;
+
+}
+
+.prod_page #search_my_prod nav ul li:hover{
+
+transform:translateY(-2px);
+
 }

@@ -234,7 +234,7 @@ function MarketPlace() {
                     <button onClick={() => open_new_page(market._id)}>Open →</button>
                     <small>
                       {market.products?.length || 0}
-                      {" "}{market.products?.length > 1 ? "Categories" : "Category" }
+                      {" "}{market.products?.length > 1  || market.products?.length ==0 ? "Categories" : "Category" }
                     </small>
                   </footer>
                 </div>

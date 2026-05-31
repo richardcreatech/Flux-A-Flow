@@ -9,20 +9,34 @@ import { useRef } from "react";
 
 function Prod() {
   const navigate = useNavigate();
-  const create_a_market = useRef(null);
-  const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
   const [nickname, setNickname] = useState("");
   const [desc, setDesc] = useState("");
   const [origin, setOrigin] = useState("");
   const [prods, setProds] = useState([]);
+  const [search, setSearch] = useState("");
+  const [categories, set_categories] = useState(["all"]);
+
   const [hasSocialProfile, setHasSocialProfile] = useState(false);
 
   const [my_markets, set_my_markets] = useState([]);
 
   const [preview, setPreview] = useState(null);
   const [file, setFile] = useState(null);
+  const [selectedMarket, setSelectedMarket] = useState("My Market");
+
+  const filteredProducts = prods.filter((product) => {
+    if (selectedMarket == "all") {
+      return(
+      product.name.toLowerCase().includes(search.toLowerCase()) 
+    )
+    }
+    return (
+      product.name.toLowerCase().includes(search.toLowerCase()) &&
+      product.marketplaceName == selectedMarket
+    );
+  });
 
   const check_for_social_profile = async () => {
     const token = localStorage.getItem("token");
@@ -108,6 +122,17 @@ function Prod() {
     const data = await res.json();
     setProds(data.products);
     console.log(data.products[0]);
+    let all_categories = [...categories];
+
+    for (let i = 0; i < data.products.length; i++) {
+      const marketName = data.products[i].marketplaceName;
+
+      if (!all_categories.includes(marketName)) {
+        all_categories.push(marketName);
+      }
+    }
+
+    set_categories(all_categories);
   };
 
   useEffect(() => {
@@ -119,10 +144,25 @@ function Prod() {
   return (
     <main className="page-layout">
       <Aside />
+      <section id="main-page" className="prod_page">
+        <section id="search_my_prod">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-      <section id="main-page">
+          <nav>
+            <ul>
+              {categories?.map((i) => (
+                <li onClick={() => setSelectedMarket(i)}>{i}</li>
+              ))}
+            </ul>
+          </nav>
+        </section>
         <section id="products-page">
-          {prods?.map(
+          {filteredProducts?.map(
             ({
               imageURL,
 
