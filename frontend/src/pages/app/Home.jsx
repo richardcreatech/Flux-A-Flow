@@ -11,14 +11,14 @@ import {
 import Aside from "../../components/Aside";
 import "../../styles/home.css";
 
-const FALLBACK_STATS = {
-  orders: { value: 24, delta: "+3 this week" },
-  reviews: { value: 4.1, delta: "8 verified" },
-  products: { value: 12, delta: "2 low stock" },
-  messages: { value: 3, delta: "unread" },
-};
-
 function Home() {
+  const [avg, setAvg] = useState(0);
+  const FALLBACK_STATS = {
+    orders: { value: 24, delta: "" },
+    reviews: { value: 4.1, delta: "" },
+    products: { value: 12, delta: "" },
+    messages: { value: 3, delta: "" },
+  };
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState(FALLBACK_STATS);
@@ -41,7 +41,30 @@ function Home() {
     setDashboard(data);
   };
 
+  const loadReviews = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://localhost:5000/auth/reviews", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    let total = 0;
+
+    for (let i = 0; i < data.reviews.length; i++) {
+      total += data.reviews[i].rating;
+    }
+
+    const my_avg = data.reviews.length > 0 ? total / data.reviews.length : 0;
+
+    setAvg(my_avg);
+    console.log(data.reviews);
+  };
+
   useEffect(() => {
+    loadReviews();
     loadDashboard();
   }, []);
 
@@ -99,7 +122,7 @@ function Home() {
       key: "reviews",
       icon: faStar,
       label: "Reviews",
-      value: stats.reviews.value,
+      value: avg,
       hint: stats.reviews.delta,
       to: "/reviews",
     },
@@ -146,7 +169,7 @@ function Home() {
                 </span>
                 <span className="hm-stat-label">{c.label}</span>
                 <span className="hm-stat-value">{c.value}</span>
-               
+
                 <FontAwesomeIcon
                   icon={faArrowRight}
                   className="hm-stat-arrow"
