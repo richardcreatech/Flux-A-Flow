@@ -53,6 +53,18 @@ const marketplaceSchema = new mongoose.Schema(
   },
 );
 
+const revenueSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Profile",
+    required: true,
+  },
+
+  month: String,
+
+  revenue: Number,
+});
+
 const profileSchema = new mongoose.Schema(
   {
     user: {
@@ -138,10 +150,65 @@ const transactionSchema = new mongoose.Schema({
   },
 });
 
+const topProductSchema = new mongoose.Schema(
+  {
+    productId: {
+       type: String,
+      required: true,
+    },
+    productName: {
+      type: String,
+      required: true,
+    },
+    productPrice: {
+      type: Number,
+      required: true,
+    },
+    imageURL: {
+      type: String,
+      default: "",
+    },
+
+    marketplaceId: {
+      type: String,
+    },
+    marketplaceName: {
+      type: String,
+      required: true,
+    },
+
+    farmerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "farmer_profiles",
+      required: true,
+    },
+
+    totalOrders: {
+      type: Number,
+      default: 0,
+    },
+    totalRevenue: {
+      type: Number,
+      default: 0,
+    },
+
+    lastUpdated: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+const TopProduct = mongoose.model("TopProduct", topProductSchema);
 const Profile = mongoose.model("farmer_profiles", profileSchema);
 
 const Farmers = mongoose.model("farmers", user_schema);
 
 const Marketplace = mongoose.model("Marketplace", marketplaceSchema);
+const Revenue = mongoose.model("Revenue", revenueSchema);
+const Transaction = mongoose.model("Transaction", transactionSchema);
 
-module.exports = { Farmers, Profile, Marketplace };
+module.exports = { Farmers, Profile, Marketplace, Revenue, Transaction, TopProduct };

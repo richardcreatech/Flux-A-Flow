@@ -27,12 +27,15 @@ ChartJS.register(
 );
 
 function Revenue() {
+  const [months, setMonths] = useState([]);
+  const [my_rev, setMyRev] = useState([]);
+
   const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May"],
+    labels: months,
     datasets: [
       {
         label: "Revenue",
-        data: [40000, 80000, 60000, 120000, 245000],
+        data: my_rev,
         borderColor: "#1a7f3c",
         borderWidth: 2,
         pointRadius: 4,
@@ -104,6 +107,8 @@ function Revenue() {
     },
   ];
 
+  const [revenueData, setRevenueData] = useState([]);
+
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -118,10 +123,14 @@ function Revenue() {
   const [bankCode, setBankCode] = useState("");
   const [search, setSearch] = useState("");
   const [categories, set_categories] = useState(["all"]);
+
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [totalPlatformFees, setTotalPlatformFees] = useState(6000);
+
   const [hasSocialProfile, setHasSocialProfile] = useState(false);
   const add_bank = useRef(null);
   const edit_bank = useRef(null);
-
+  const [topProducts, setTopProducts] = useState([]);
   const [my_markets, set_my_markets] = useState([]);
 
   const [preview, setPreview] = useState(null);
@@ -308,11 +317,55 @@ function Revenue() {
     console.log(data);
   };
 
+  const loadRevenue = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://localhost:5000/auth/revenue", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    console.log(data.revenue);
+
+    setRevenueData(data.revenue);
+
+    const revenueData = data.revenue;
+    const arr_of_months = revenueData.map((item) => item.month);
+    const arr_of_revenue = revenueData.map((item) => item.revenue);
+
+    const total = arr_of_revenue.reduce((acc, val) => acc + val, 0);
+    setTotalRevenue(total);
+
+    setMonths(arr_of_months);
+    setMyRev(arr_of_revenue);
+  };
+
+  const loadTopProducts = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://localhost:5000/auth/top-products", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+
+    console.log(data.products);
+
+    setTopProducts(data.products);
+  };
+
   useEffect(() => {
     check_for_token();
     check_for_social_profile();
     loadProducts();
     loadBankDetails();
+    loadRevenue();
+    loadTopProducts();
   }, []);
 
   return (
@@ -401,7 +454,7 @@ function Revenue() {
               </span>
               <div>
                 <p>Total Revenue</p>
-                <h1>₦245000</h1>
+                <h1>₦{totalRevenue}</h1>
               </div>
             </article>
             <article className="metric-card platform-fees">
@@ -410,25 +463,17 @@ function Revenue() {
               </span>
               <div>
                 <p>Platform Fees</p>
-                <h1>₦45000</h1>
+                <h1>₦{totalPlatformFees}</h1>
               </div>
             </article>
-            <article className="metric-card total-orders">
-              <span>
-                <FontAwesomeIcon icon={faMoneyCheck} />
-              </span>
-              <div>
-                <p>Total Orders</p>
-                <h1>500</h1>
-              </div>
-            </article>
+
             <article className="metric-card net-earnings">
               <span>
                 <FontAwesomeIcon icon={faMoneyCheck} />
               </span>
               <div>
-                <p>Total Revenue</p>
-                <h1>₦98000</h1>
+                <p>Net Revenue</p>
+                <h1>₦{totalRevenue - totalPlatformFees}</h1>
               </div>
             </article>
           </section>
@@ -448,144 +493,22 @@ function Revenue() {
               </header>
 
               <ul>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
+                {topProducts.map((product) => (
+                  <li key={product.productId}>
+                    <span>
+                      <img src={product.imageURL} alt={product.productName} />
 
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
+                      <small>{product.totalOrders} Orders</small>
+                    </span>
 
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
-
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
-
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
-
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
-
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
-
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
-
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
-                <li>
-                  <span>
-                    <img
-                      src={
-                        "https://i.pinimg.com/736x/44/41/58/4441584c95a505aa32af278fbd1ccec2.jpg"
-                      }
-                      alt=""
-                    />
-                    <small>152 Orders</small>
-                  </span>
-
-                  <span>
-                    <p>₦400000</p>
-                  </span>
-                </li>
+                    <span>
+                      <p>₦{product.totalRevenue.toLocaleString()}</p>
+                    </span>
+                  </li>
+                ))}
               </ul>
             </article>
-
+{/* 
             <article className="recent-transactions">
               <div className="recent-transactions__header">
                 <h2>Recent Transactions</h2>
@@ -629,7 +552,7 @@ function Revenue() {
               >
                 View all transactions →
               </a>
-            </article>
+            </article> */}
 
             <article className="payment-card">
               <header>

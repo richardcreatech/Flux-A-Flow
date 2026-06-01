@@ -67,12 +67,7 @@ function Aside() {
             </Link>
           </li>
 
-          <li>
-            <Link to="/">
-              <FontAwesomeIcon icon={faBoxOpen} />
-              <small>Orders</small>
-            </Link>
-          </li>
+        
         </ul>
       </nav>
       <hr />
