@@ -5,7 +5,7 @@ import {
   faStore,
   faSeedling,
   faBoxOpen,
-  faComments,
+  faCoins,
   faTruck,
   faStar,
   faGear,
@@ -57,6 +57,13 @@ function Aside() {
             <Link to="/prod">
               <FontAwesomeIcon icon={faSeedling} />
               <small>Products</small>
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/revenue">
+              <FontAwesomeIcon icon={faCoins} />
+              <small>Revenue</small>
             </Link>
           </li>
 

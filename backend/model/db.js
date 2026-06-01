@@ -91,10 +91,51 @@ const profileSchema = new mongoose.Schema(
   },
 );
 
+const transactionSchema = new mongoose.Schema({
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  },
+
+  marketplaceId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Marketplace",
+  },
+
+  buyerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+
+  farmerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+
+  amount: Number,
+
+  quantity: Number,
+
+  platformFee: Number,
+
+  status: {
+    type: String,
+    enum: ["pending", "successful", "failed"],
+    default: "pending",
+  },
+
+  paystackReference: String,
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 const Profile = mongoose.model("farmer_profiles", profileSchema);
 
 const Farmers = mongoose.model("farmers", user_schema);
 
-const Marketplace = mongoose.model('Marketplace', marketplaceSchema);
+const Marketplace = mongoose.model("Marketplace", marketplaceSchema);
 
 module.exports = { Farmers, Profile, Marketplace };

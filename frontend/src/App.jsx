@@ -6,6 +6,7 @@ import Reviews from "./pages/app/Reviews";
 import Home from "./pages/app/Home";
 import SingleMarket from "./pages/app/SingleMarket";
 import Prod from "./pages/app/Prod";
+import Revenue from "./pages/app/Revenue";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/marketplace/:id" element={<SingleMarket />} />
       <Route path="/prod" element={<Prod />} />
       <Route path="/reviews" element={<Reviews />} />
+      <Route path="/revenue" element={<Revenue />} />
     </Routes>
   );
 }
