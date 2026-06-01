@@ -83,7 +83,8 @@ function Aside() {
           <small>Thank you for your patronage</small>
           <br />
           <button>
-            <FontAwesomeIcon icon={faDoorOpen} /> Sign Out
+            <FontAwesomeIcon icon={faDoorOpen} />{" "}
+            <span className="btn-label">Sign Out</span>
           </button>
         </div>
       </article>

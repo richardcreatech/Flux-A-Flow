@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "../../styles/revenue.css";
 import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoneyCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMoneyCheck,
+  faClose,
+  faAdd,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -57,16 +61,6 @@ function Revenue() {
     },
   };
 
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [profilePicture, setProfilePicture] = useState(null);
-  const [nickname, setNickname] = useState("");
-  const [desc, setDesc] = useState("");
-  const [origin, setOrigin] = useState("");
-  const [prods, setProds] = useState([]);
-  const [search, setSearch] = useState("");
-  const [categories, set_categories] = useState(["all"]);
-
   const transactions = [
     {
       date: "Jun 2, 2025 09:41 AM",
@@ -110,7 +104,23 @@ function Revenue() {
     },
   ];
 
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [nickname, setNickname] = useState("");
+  const [desc, setDesc] = useState("");
+  const [origin, setOrigin] = useState("");
+  const [prods, setProds] = useState([]);
+  const [accountName, setAccountName] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [users_bank, setUsersBank] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [bankCode, setBankCode] = useState("");
+  const [search, setSearch] = useState("");
+  const [categories, set_categories] = useState(["all"]);
   const [hasSocialProfile, setHasSocialProfile] = useState(false);
+  const add_bank = useRef(null);
+  const edit_bank = useRef(null);
 
   const [my_markets, set_my_markets] = useState([]);
 
@@ -225,10 +235,84 @@ function Revenue() {
     set_categories(all_categories);
   };
 
+  const close_form = () => {
+    add_bank.current.classList.toggle("show");
+  };
+
+  const close_ed_form = () => {
+    edit_bank.current.classList.toggle("show");
+  };
+
+  const add_bank_details = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    const bankDetails = {
+      accountName,
+      accountNumber,
+      bankName,
+      bankCode,
+    };
+
+    const res = await fetch("http://localhost:5000/auth/bank-details", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(bankDetails),
+    });
+
+    const data = await res.json();
+
+    console.log(data);
+  };
+
+  const edit_bank_details = async () => {
+    const token = localStorage.getItem("token");
+
+    const bankDetails = {
+      accountName,
+      accountNumber,
+      bankName,
+      bankCode,
+    };
+
+    const res = await fetch("http://localhost:5000/auth/bank-details", {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify(bankDetails),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    location.reload();
+  };
+
+  const loadBankDetails = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://localhost:5000/auth/bank-details", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    setUsersBank(data.bankDetails);
+    console.log(data);
+  };
+
   useEffect(() => {
     check_for_token();
     check_for_social_profile();
     loadProducts();
+    loadBankDetails();
   }, []);
 
   return (
@@ -236,7 +320,80 @@ function Revenue() {
       <Aside />
       <section id="main-page">
         <section id="revenue-page">
-          <small className="revenue_dets">Revenue Summary</small>
+          <section id="add_bank_details" ref={add_bank}>
+            <form action="" onSubmit={(e) => add_bank_details(e)}>
+              <FontAwesomeIcon icon={faClose} onClick={close_form} />
+              <input
+                type="text"
+                placeholder="Account Name"
+                value={accountName}
+                onChange={(e) => setAccountName(e.target.value)}
+              />
+
+              <input
+                type="number"
+                placeholder="Account Number"
+                value={accountNumber}
+                onChange={(e) => setAccountNumber(e.target.value)}
+              />
+
+              <input
+                type="text"
+                placeholder="Bank Name"
+                value={bankName}
+                onChange={(e) => setBankName(e.target.value)}
+              />
+
+              <input
+                type="number"
+                placeholder="Bank Code"
+                value={bankCode}
+                onChange={(e) => setBankCode(e.target.value)}
+              />
+              <button id="add_bank_dets">Add Bank Details</button>
+            </form>
+          </section>
+          <section id="edit_bank_details" ref={edit_bank}>
+            <form action="" onSubmit={(e) => edit_bank_details(e)}>
+              <FontAwesomeIcon icon={faClose} onClick={close_ed_form} />
+              <input
+                type="text"
+                placeholder="Account Name"
+                value={accountName}
+                onChange={(e) => setAccountName(e.target.value)}
+              />
+
+              <input
+                type="number"
+                placeholder="Account Number"
+                value={accountNumber}
+                onChange={(e) => setAccountNumber(e.target.value)}
+              />
+
+              <input
+                type="text"
+                placeholder="Bank Name"
+                value={bankName}
+                onChange={(e) => setBankName(e.target.value)}
+              />
+
+              <input
+                type="number"
+                placeholder="Bank Code"
+                value={bankCode}
+                onChange={(e) => setBankCode(e.target.value)}
+              />
+              <button id="add_bank_dets">Edit Bank Details</button>
+            </form>
+          </section>
+
+          <section id="rev-sep">
+            <small className="revenue_dets">Revenue Summary</small>
+            {!users_bank && (
+              <FontAwesomeIcon icon={faAdd} onClick={close_form} />
+            )}
+          </section>
+
           <section id="revenue_details">
             <article className="metric-card total-revenue">
               <span>
@@ -276,7 +433,7 @@ function Revenue() {
             </article>
           </section>
 
-          <small className="revenue_dets">Revenue Summary</small>
+          <small className="revenue_dets">Revenue Overview</small>
           <br />
           <br />
           <section id="revenue_diary">
@@ -427,7 +584,6 @@ function Revenue() {
                   </span>
                 </li>
               </ul>
-            
             </article>
 
             <article className="recent-transactions">
@@ -479,13 +635,30 @@ function Revenue() {
               <header>
                 <h2>Payment details</h2>
               </header>
-              <div>
-                <span>
-                  <small>Bank Account</small>
-                  <p>Zenith Bank</p>
-                  <p>**** **** **** 1234</p>
-                </span>
-                <button>Edit Bank Account</button>
+              <div className="bank_account_card">
+                <div className="card_header">
+                  <small>Payout Account</small>
+
+                  <div className="card_chip" onClick={close_ed_form}></div>
+                </div>
+
+                <div className="card_body">
+                  <h3>{users_bank?.bankName || "No Bank Added"}</h3>
+
+                  <p className="account_number">
+                    {users_bank?.accountNumber
+                      ? `**** **** **** ${users_bank.accountNumber.slice(-4)}`
+                      : "Add your payout account"}
+                  </p>
+                </div>
+
+                <div className="card_footer">
+                  <span>{users_bank?.accountName || "Not Configured"}</span>
+
+                  {users_bank?.verified && (
+                    <span className="verified_badge">✓ Verified</span>
+                  )}
+                </div>
               </div>
             </article>
           </section>

@@ -5,10 +5,249 @@
   padding: 24px 0;
 }
 
-.revenue_dets{
-    opacity: 0.3;
+.revenue_dets {
+  opacity: 0.3;
 }
 
+#revenue-page #add_bank_details, #edit_bank_details {
+  display: none;
+}
+
+#revenue-page #add_bank_details.show, #edit_bank_details.show {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: backdropIn 0.25s ease;
+}
+
+#revenue-page #add_bank_details.show form, #edit_bank_details.show form {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: formIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#revenue-page #add_bank_details.show form input,#edit_bank_details.show form input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #e8f5e9;
+  font-size: 14px;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+#revenue-page #add_bank_details.show form input:focus {
+  border-color: #1a7f3c;
+}
+
+#revenue-page #add_bank_details.show form input::placeholder {
+  color: #9ca3af;
+}
+
+#rev-sep {
+  /* border:   solid; */
+  display: flex;
+  justify-content: space-between;
+}
+
+#revenue-page #add_bank_dets {
+  padding: 10px 20px;
+  background: #00ff88;
+  color: #0b0a0a;
+  border: solid black;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.bank_account_card {
+  width: 100%;
+  min-height: 220px;
+
+  padding: 1.5rem;
+
+  border-radius: 0.43rem;
+
+  background: linear-gradient(135deg, #0f0f0f, #171717);
+
+  border: 1px solid rgba(57, 255, 20, 0.25);
+
+  box-shadow: 0 0 2rem rgba(57, 255, 20, 0.1);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  color: white;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.bank_account_card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 250px;
+
+  height: 250px;
+
+  background: rgba(57, 255, 20, 0.08);
+
+  border-radius: 20%;
+
+  top: -120px;
+
+  right: -120px;
+}
+
+.bank_account_card .card_header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.bank_account_card .card_header small {
+  color: #a3a3a3;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.15rem;
+
+  font-size: 0.75rem;
+}
+
+.bank_account_card .card_chip {
+  width: 55px;
+
+  height: 40px;
+
+  border-radius: 0.5rem;
+
+  background: linear-gradient(135deg, #f5d76e, #d4af37);
+
+  position: relative;
+}
+
+.bank_account_card .card_chip::before {
+  content: "";
+
+  position: absolute;
+
+  width: 100%;
+
+  height: 1px;
+
+  background: rgba(0, 0, 0, 0.2);
+
+  top: 50%;
+}
+
+.bank_account_card .card_body {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.75rem;
+}
+
+.bank_account_card .card_body h3 {
+  margin: 0;
+
+  font-size: 1.3rem;
+
+  font-weight: 600;
+}
+
+.bank_account_card .account_number {
+  margin: 0;
+
+  font-size: 1.25rem;
+
+  letter-spacing: 0.25rem;
+
+  font-weight: 500;
+
+  color: #39ff14;
+}
+
+.bank_account_card .card_footer {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.bank_account_card .card_footer span:first-child {
+  color: #d4d4d4;
+
+  font-size: 0.95rem;
+}
+
+.bank_account_card .verified_badge{
+  padding:.4rem .8rem;
+
+  border-radius:999px;
+
+  background:#39ff14;
+
+  color:black;
+
+  font-size:.8rem;
+
+  font-weight:600;
+}
+
+
+#revenue-page #add_bank_dets:hover {
+  background: #166534;
+}
+
+#revenue-page #add_bank_dets:active {
+  transform: scale(0.97);
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes formIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
 
 #revenue_details .metric-card {
   display: flex;
@@ -90,47 +329,47 @@
 }
 
 .payment-card {
-  height: 180px;
+  height: 300px;
 }
 
-#revenue_diary  article:nth-of-type(1) {
+#revenue_diary article:nth-of-type(1) {
   grid-area: chart;
 }
 
-#revenue_diary  article:nth-of-type(2) {
+#revenue_diary article:nth-of-type(2) {
   grid-area: products;
 }
 
-#revenue_diary  article:nth-of-type(3) {
+#revenue_diary article:nth-of-type(3) {
   grid-area: transactions;
 }
 
-#revenue_diary  article:nth-of-type(4) {
+#revenue_diary article:nth-of-type(4) {
   grid-area: payment;
 }
 
 #revenue_diary article {
-  border: 1px solid #222;
+  /* border: 1px solid #222; */
   border-radius: 2px;
   padding: 1.25rem;
   overflow: hidden;
 }
 
-#revenue_diary  article:nth-of-type(1) {
+#revenue_diary article:nth-of-type(1) {
   display: flex;
   flex-direction: column;
 }
 
-#revenue_diary  article:nth-of-type(1) canvas {
+#revenue_diary article:nth-of-type(1) canvas {
   flex: 1;
 }
 
-#revenue_diary  article:nth-of-type(2) {
+#revenue_diary article:nth-of-type(2) {
   display: flex;
   flex-direction: column;
 }
 
-#revenue_diary  article:nth-of-type(2) ul {
+#revenue_diary article:nth-of-type(2) ul {
   flex: 1;
   overflow-y: auto;
 
@@ -143,20 +382,20 @@
   list-style: none;
 }
 
-#revenue_diary  article:nth-of-type(2) li {
+#revenue_diary article:nth-of-type(2) li {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-#revenue_diary  article:nth-of-type(2) img {
+#revenue_diary article:nth-of-type(2) img {
   width: 42px;
   height: 42px;
   border-radius: 10px;
   object-fit: cover;
 }
 
-#revenue_diary  article:nth-of-type(2) li span:first-child {
+#revenue_diary article:nth-of-type(2) li span:first-child {
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -187,15 +426,13 @@
   border-bottom: 1px solid #1a1a1a;
 }
 
-
-
-#revenue_diary  article:nth-of-type(4) {
+#revenue_diary article:nth-of-type(4) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-#revenue_diary  article:nth-of-type(4) button {
+#revenue_diary article:nth-of-type(4) button {
   width: 100%;
   border: none;
   padding: 1rem;
@@ -235,4 +472,106 @@
 
 .recent-transactions__table-wrapper {
   overflow-x: auto;
+}
+
+.recent-transactions {
+  /* background: #111827; */
+  border: 1px solid rgba(0, 255, 140, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow:
+    0 0 15px rgba(0, 255, 140, 0.08),
+    inset 0 0 10px rgba(0, 255, 140, 0.03);
+  color: #000000;
+}
+
+.recent-transactions__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.recent-transactions__header h2 {
+  color: #036d3b;
+  margin: 0;
+  font-size: 1.3rem;
+  /* text-shadow: 0 0 8px rgba(0, 255, 136, 0.5); */
+}
+
+.recent-transactions__header a,
+.recent-transactions__footer-link {
+  color: #05af5f;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.recent-transactions__header a:hover,
+.recent-transactions__footer-link:hover {
+  color: #028147;
+}
+
+.recent-transactions__table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+.recent-transactions__table th {
+  text-align: left;
+  padding: 14px;
+  color: #00ff88;
+  border-bottom: 1px solid rgba(0, 255, 140, 0.2);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.recent-transactions__table td {
+  padding: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.recent-transactions__table tbody tr {
+  transition: 0.3s ease;
+}
+
+.recent-transactions__table tbody tr:hover {
+  background: rgba(0, 255, 136, 0.08);
+  transform: scale(1.002);
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Success */
+.status-badge--completed {
+  background: rgba(0, 255, 136, 0.15);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.4);
+}
+
+/* Pending */
+.status-badge--pending {
+  background: rgba(255, 193, 7, 0.15);
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.4);
+}
+
+/* Failed */
+.status-badge--failed {
+  background: rgba(255, 77, 77, 0.15);
+  color: #ff4d4d;
+  border: 1px solid rgba(255, 77, 77, 0.4);
+}
+
+.recent-transactions__footer-link {
+  display: inline-block;
+  margin-top: 18px;
 }

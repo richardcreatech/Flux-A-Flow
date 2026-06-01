@@ -79,6 +79,12 @@ const profileSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    bankDetails: {
+      accountName: String,
+      accountNumber: String,
+      bankCode: String,
+      bankName: String,
+    },
     marketplaces: [
       {
         type: mongoose.Schema.Types.ObjectId,
