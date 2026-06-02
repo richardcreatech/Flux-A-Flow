@@ -68,7 +68,7 @@
 }
 
 
-/* ── Base ─────────────────────────────────────────── */
+
 
 .hm {
   max-width: 960px;
@@ -78,7 +78,7 @@
   color: var(--ink);
 }
 
-/* ── Hero ─────────────────────────────────────────── */
+
 
 .hm-hero {
   margin-bottom: var(--sp-7);
@@ -139,8 +139,6 @@
   font-size: var(--fs-base);
   color: var(--ink-2);
 }
-
-/* ── Stat cards ───────────────────────────────────── */
 
 .hm-stats {
   list-style: none;
@@ -229,7 +227,7 @@
   transform: translateX(4px);
 }
 
-/* ── Panels ───────────────────────────────────────── */
+
 
 .hm-panels {
   display: grid;
@@ -257,7 +255,7 @@
   color: var(--ink);
 }
 
-/* ── Feed ─────────────────────────────────────────── */
+
 
 .hm-feed {
   list-style: none;
@@ -321,7 +319,6 @@
   100% { box-shadow: 0 0 0 0 rgba(47, 93, 59, 0); }
 }
 
-/* ── Quick actions ────────────────────────────────── */
 
 .hm-actions {
   display: flex;
@@ -382,7 +379,6 @@
   color: #fff;
 }
 
-/* ── Motion respect ───────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   .hm-hero,
@@ -411,7 +407,6 @@
   }
 }
 
-/* ── Responsive ───────────────────────────────────── */
 
 @media (max-width: 860px) {
   .hm-stats {

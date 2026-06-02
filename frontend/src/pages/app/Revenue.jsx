@@ -489,7 +489,7 @@ function Revenue() {
             <article className="products-card">
               <header>
                 <h2>Top Performing Products</h2>
-                <p>View All</p>
+               
               </header>
 
               <ul>

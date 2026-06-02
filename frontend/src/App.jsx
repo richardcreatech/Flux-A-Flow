@@ -13,6 +13,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Auth />} />
       <Route path="/login" element={<Auth />} />
+      <Route path="/register" element={<Auth />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/home" element={<Home />} />
       <Route path="/marketplace" element={<MarketPlace />} />

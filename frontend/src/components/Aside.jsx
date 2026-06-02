@@ -77,7 +77,10 @@ function Aside() {
           <br />
           <small>Thank you for your patronage</small>
           <br />
-          <button>
+          <button onClick={() => {
+            localStorage.removeItem('token');
+            location.assign("/")
+          }}>
             <FontAwesomeIcon icon={faDoorOpen} />{" "}
             <span className="btn-label">Sign Out</span>
           </button>

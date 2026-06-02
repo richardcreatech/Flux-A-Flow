@@ -21,6 +21,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!formData.password || !formData.email) {
+      alert("These need to filled in before you can pro!")
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:5000/auth/signin", {
         method: "POST",

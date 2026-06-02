@@ -12,7 +12,7 @@ body {
   background: #eef2f5;
 }
 
-/* OUTER CONTAINER */
+
 .auth-container {
   height: 100vh;
   display: flex;
@@ -20,7 +20,7 @@ body {
   align-items: center;
 }
 
-/* CARD */
+
 .auth-card {
   width: 900px;
   height: 550px;
@@ -31,7 +31,7 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* LEFT SIDE */
+
 .auth-form {
   width: 50%;
   padding: 40px;
@@ -55,7 +55,7 @@ body {
   color: #666;
 }
 
-/* TABS */
+
 .tabs {
   display: flex;
   /* margin: 20px 0; */
@@ -78,10 +78,7 @@ body {
   background: white;
   font-weight: 600;
 }
-/*
-            */
 
-/* FORM */
 form {
   display: flex;
   flex-direction: column;
@@ -112,7 +109,7 @@ input {
   color: #999;
 }
 
-/* SOCIALS */
+
 .socials {
   display: flex;
   justify-content: center;
@@ -128,7 +125,7 @@ input {
   cursor: pointer;
 }
 
-/* FOOTER */
+
 .footer {
   font-size: 12px;
   color: #888;
@@ -143,7 +140,6 @@ input {
   color: #888;
 }
 
-/* RIGHT SIDE */
 .auth-showcase {
   width: 50%;
   background: rgb(3, 167, 104);
@@ -165,7 +161,6 @@ input {
   opacity: 0.9;
 }
 
-/* DOTS */
 .carousel-dots {
   margin-top: 20px;
 }
@@ -210,13 +205,12 @@ input {
   transition: all 0.25s ease;
 }
 
-/* hover effect */
 .drk-mode:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* CARD */
+
 body.dark .auth-card {
   background: #111827;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
@@ -226,7 +220,7 @@ body.dark h2 {
   color: #e5e7eb;
 }
 
-/* LEFT SIDE TEXT */
+
 body.dark .subtitle {
   color: #9ca3af;
 }
@@ -239,7 +233,7 @@ body.dark .footer a {
   color: #9ca3af;
 }
 
-/* TABS */
+
 body.dark .tabs {
   background: #1f2933;
 }
@@ -253,7 +247,7 @@ body.dark .tabs .active {
   border: 1px solid #374151;
 }
 
-/* INPUTS */
+
 body.dark input {
   background: #1f2937;
   border: 1px solid #374151;
@@ -264,12 +258,12 @@ body.dark input::placeholder {
   color: #6b7280;
 }
 
-/* BUTTON */
+
 body.dark .primary-btn {
-  background: rgb(3, 167, 104); /* brighter for contrast */
+  background: rgb(3, 167, 104);
 }
 
-/* DIVIDER */
+
 body.dark .divider {
   color: #6b7280;
 }
@@ -287,7 +281,7 @@ body.dark .auth-showcase {
   border: solid 3px #1f2937;
 }
 
-/* DOTS */
+
 body.dark .carousel-dots span {
   background: rgba(255, 255, 255, 0.2);
 }
@@ -296,11 +290,7 @@ body.dark .carousel-dots .active {
   background: white;
 }
 
-/* =========================
-   RESPONSIVE STYLING
-========================= */
 
-/* Tablets and below */
 @media (max-width: 1024px) {
   .auth-card {
     width: 90%;
