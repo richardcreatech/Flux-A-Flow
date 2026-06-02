@@ -51,7 +51,7 @@ function MarketPlace() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:5000/auth/social-profile", {
+      const res = await fetch("https://flux-a-flow.onrender.com/auth/social-profile", {
         method: "GET",
 
         headers: {
@@ -94,7 +94,7 @@ function MarketPlace() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/auth/profile", {
+      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -122,7 +122,7 @@ function MarketPlace() {
   const loadMarkets = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/marketplaces", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/marketplaces", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -139,7 +139,7 @@ function MarketPlace() {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/marketplace", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/marketplace", {
       method: "POST",
 
       headers: {

@@ -42,7 +42,7 @@ function Prod() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:5000/auth/social-profile", {
+      const res = await fetch("https://flux-a-flow.onrender.com/auth/social-profile", {
         method: "GET",
 
         headers: {
@@ -85,7 +85,7 @@ function Prod() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/auth/profile", {
+      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +110,7 @@ function Prod() {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      "http://localhost:5000/auth/all-products",
+      "https://flux-a-flow.onrender.com/auth/all-products",
 
       {
         headers: {

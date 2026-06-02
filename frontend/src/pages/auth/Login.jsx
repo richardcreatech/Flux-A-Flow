@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import Successful from "../../components/Success";
 
 function Login() {
@@ -7,7 +7,6 @@ function Login() {
     password: "",
   });
   const [data, setData] = useState("");
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,32 +21,34 @@ function Login() {
     e.preventDefault();
 
     if (!formData.password || !formData.email) {
-      alert("These need to filled in before you can pro!")
+      alert("These need to filled in before you can pro!");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:5000/auth/signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://flux-a-flow.onrender.com/auth/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+          }),
         },
-        credentials: "include",
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+      );
 
-      
       const data = await response.json();
       setData(data);
-      
+
       setTimeout(() => {
-        localStorage.setItem("token",data.token)
-        location.assign("/profile");  
+        localStorage.setItem("token", data.token);
+        location.assign("/profile");
         setData(null);
-      },2000);
+      }, 2000);
 
       if (!response.ok) {
         console.log(data.message);
@@ -55,7 +56,7 @@ function Login() {
       }
 
       console.log("Login successful:", data);
-      setFormData({})
+      setFormData({});
     } catch (error) {
       console.log("Something went wrong:", error);
     }
@@ -63,8 +64,8 @@ function Login() {
 
   return (
     <form onSubmit={handleSubmit}>
-         { data && <Successful text={data.message} /> }
-      
+      {data && <Successful text={data.message} />}
+
       <input
         type="email"
         name="email"

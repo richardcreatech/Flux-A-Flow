@@ -32,7 +32,7 @@ function Home() {
   const loadDashboard = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/dashboard", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/dashboard", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -44,7 +44,7 @@ function Home() {
   const loadReviews = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/reviews", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/reviews", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -84,7 +84,7 @@ function Home() {
     // Try the new /auth/home endpoint, fall back to /auth/profile, then to dummy
     (async () => {
       try {
-        const res = await fetch("http://localhost:5000/auth/home", {
+        const res = await fetch("https://flux-a-flow.onrender.com/auth/home", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {
@@ -96,7 +96,7 @@ function Home() {
       } catch (_) {}
 
       try {
-        const res = await fetch("http://localhost:5000/auth/profile", {
+        const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {

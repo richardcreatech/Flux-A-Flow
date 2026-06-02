@@ -55,7 +55,7 @@ function SingleMarket() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/auth/marketplace/${marketId}`,
+        `https://flux-a-flow.onrender.com/auth/marketplace/${marketId}`,
 
         {
           method: "DELETE",
@@ -88,7 +88,7 @@ function SingleMarket() {
     formData.append("imageURL", product_image_url);
 
     const res = await fetch(
-      `http://localhost:5000/auth/marketplace/${id}/product`,
+      `https://flux-a-flow.onrender.com/auth/marketplace/${id}/product`,
 
       {
         method: "POST",
@@ -117,7 +117,7 @@ function SingleMarket() {
     formData.append("imageURL", product_image_url);
 
     const res = await fetch(
-      `http://localhost:5000/auth/marketplace/${id}/product/${product_id}`,
+      `https://flux-a-flow.onrender.com/auth/marketplace/${id}/product/${product_id}`,
       {
         method: "PATCH",
 
@@ -140,7 +140,7 @@ function SingleMarket() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/auth/marketplace/${id}/product/${productId}`,
+        `https://flux-a-flow.onrender.com/auth/marketplace/${id}/product/${productId}`,
 
         {
           method: "DELETE",
@@ -163,7 +163,7 @@ function SingleMarket() {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      `http://localhost:5000/auth/marketplace/${id}/products`,
+      `https://flux-a-flow.onrender.com/auth/marketplace/${id}/products`,
 
       {
         headers: {

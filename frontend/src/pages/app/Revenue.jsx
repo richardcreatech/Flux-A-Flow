@@ -151,7 +151,7 @@ function Revenue() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("http://localhost:5000/auth/social-profile", {
+      const res = await fetch("https://flux-a-flow.onrender.com/auth/social-profile", {
         method: "GET",
 
         headers: {
@@ -194,7 +194,7 @@ function Revenue() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/auth/profile", {
+      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -219,7 +219,7 @@ function Revenue() {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      "http://localhost:5000/auth/all-products",
+      "https://flux-a-flow.onrender.com/auth/all-products",
 
       {
         headers: {
@@ -263,7 +263,7 @@ function Revenue() {
       bankCode,
     };
 
-    const res = await fetch("http://localhost:5000/auth/bank-details", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/bank-details", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -287,7 +287,7 @@ function Revenue() {
       bankCode,
     };
 
-    const res = await fetch("http://localhost:5000/auth/bank-details", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/bank-details", {
       method: "PUT",
 
       headers: {
@@ -306,7 +306,7 @@ function Revenue() {
   const loadBankDetails = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/bank-details", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/bank-details", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -320,7 +320,7 @@ function Revenue() {
   const loadRevenue = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/revenue", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/revenue", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -346,7 +346,7 @@ function Revenue() {
   const loadTopProducts = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/top-products", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/top-products", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

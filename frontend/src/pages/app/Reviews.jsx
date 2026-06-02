@@ -127,7 +127,7 @@ function Reviews() {
   const loadReviews = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/auth/reviews", {
+    const res = await fetch("https://flux-a-flow.onrender.com/auth/reviews", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -156,7 +156,7 @@ function Reviews() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/auth/profile", {
+      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
