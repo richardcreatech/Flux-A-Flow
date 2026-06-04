@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import API_BASE_URL from "../../config/api";
 import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -55,7 +56,7 @@ function SingleMarket() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `https://flux-a-flow.onrender.com/auth/marketplace/${marketId}`,
+        `${API_BASE_URL}/auth/marketplace/${marketId}`,
 
         {
           method: "DELETE",
@@ -88,7 +89,7 @@ function SingleMarket() {
     formData.append("imageURL", product_image_url);
 
     const res = await fetch(
-      `https://flux-a-flow.onrender.com/auth/marketplace/${id}/product`,
+      `${API_BASE_URL}/auth/marketplace/${id}/product`,
 
       {
         method: "POST",
@@ -117,7 +118,7 @@ function SingleMarket() {
     formData.append("imageURL", product_image_url);
 
     const res = await fetch(
-      `https://flux-a-flow.onrender.com/auth/marketplace/${id}/product/${product_id}`,
+      `${API_BASE_URL}/auth/marketplace/${id}/product/${product_id}`,
       {
         method: "PATCH",
 
@@ -140,7 +141,7 @@ function SingleMarket() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `https://flux-a-flow.onrender.com/auth/marketplace/${id}/product/${productId}`,
+        `${API_BASE_URL}/auth/marketplace/${id}/product/${productId}`,
 
         {
           method: "DELETE",
@@ -163,7 +164,7 @@ function SingleMarket() {
     const token = localStorage.getItem("token");
 
     const res = await fetch(
-      `https://flux-a-flow.onrender.com/auth/marketplace/${id}/products`,
+      `${API_BASE_URL}/auth/marketplace/${id}/products`,
 
       {
         headers: {

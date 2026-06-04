@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Successful from "../../components/Success";
+import API_BASE_URL from "../../config/api";
 
 function SignUp() {
   const [fullName, setFullName] = useState("");
@@ -11,15 +12,12 @@ function SignUp() {
   const [data, setData] = useState("");
   const [modal, setModal] = useState(false);
 
-
   async function handleSubmit(e) {
     e.preventDefault();
     // Handle form submission logic here
 
-    
-
     try {
-      const response = await fetch("https://flux-a-flow.onrender.com/auth/signup", {
+      const response = await fetch(`${API_BASE_URL}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,41 +28,40 @@ function SignUp() {
           password: password,
         }),
       });
-      
+
       const data = await response.json();
-      
+
       if (!data.error) {
         setModal(true);
         setData(data);
         setTimeout(() => {
           setData(null);
-        },2000);
+        }, 2000);
         console.log("Signup successful:", data);
-       }
-      
-    }
-    catch (error) {
+      }
+    } catch (error) {
       console.error(error);
     }
   }
 
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
+      {modal && (
+        <div id="check_mail_space">
+          <div id="check_mail_modal">
+            <div className="icon">
+              <FontAwesomeIcon icon={faPaperPlane} id="paper-plane-icon" />
+            </div>
 
-    {modal && (<div id="check_mail_space">
-  <div id="check_mail_modal">
-    
-    <div className="icon">
-      <FontAwesomeIcon icon={faPaperPlane}id="paper-plane-icon"/>
-    </div>
-
-    <div className="content">
-      <p>Check your Mail</p>
-      <button onClick={() => setModal(false)} id="just_checked">Just Checked</button>
-    </div>
-
-  </div>
-</div>)}
+            <div className="content">
+              <p>Check your Mail</p>
+              <button onClick={() => setModal(false)} id="just_checked">
+                Just Checked
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {data && <Successful text={data.error ? data.error : data.message} />}
 
       <input

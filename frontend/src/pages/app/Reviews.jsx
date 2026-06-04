@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../../config/api";
 import "../../styles/reviews.css";
 
 function Stars({ value }) {
@@ -127,7 +128,7 @@ function Reviews() {
   const loadReviews = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/reviews", {
+    const res = await fetch(`${API_BASE_URL}/auth/reviews`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -156,7 +157,7 @@ function Reviews() {
     }
 
     try {
-      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
+      const res = await fetch(`${API_BASE_URL}/auth/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

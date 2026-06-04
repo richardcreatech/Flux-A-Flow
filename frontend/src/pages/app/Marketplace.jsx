@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from "../../config/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "../../styles/market.css";
 import Aside from "../../components/Aside";
@@ -51,7 +52,7 @@ function MarketPlace() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("https://flux-a-flow.onrender.com/auth/social-profile", {
+      const res = await fetch(`${API_BASE_URL}/auth/social-profile`, {
         method: "GET",
 
         headers: {
@@ -94,7 +95,7 @@ function MarketPlace() {
     }
 
     try {
-      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
+      const res = await fetch(`${API_BASE_URL}/auth/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -122,7 +123,7 @@ function MarketPlace() {
   const loadMarkets = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/marketplaces", {
+    const res = await fetch(`${API_BASE_URL}/auth/marketplaces`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -139,7 +140,7 @@ function MarketPlace() {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/marketplace", {
+    const res = await fetch(`${API_BASE_URL}/auth/marketplace`, {
       method: "POST",
 
       headers: {
@@ -158,8 +159,8 @@ function MarketPlace() {
   };
 
   const open_new_page = async (arg) => {
-   location.assign(`marketplace/${arg}`)
- } 
+    location.assign(`marketplace/${arg}`);
+  };
 
   useEffect(() => {
     check_for_social_profile();
@@ -230,11 +231,15 @@ function MarketPlace() {
                     <p>{market.description || "No description"}</p>
                   </div>
                   <footer>
-
-                    <button onClick={() => open_new_page(market._id)}>Open →</button>
+                    <button onClick={() => open_new_page(market._id)}>
+                      Open →
+                    </button>
                     <small>
-                      {market.products?.length || 0}
-                      {" "}{market.products?.length > 1  || market.products?.length ==0 ? "Categories" : "Category" }
+                      {market.products?.length || 0}{" "}
+                      {market.products?.length > 1 ||
+                      market.products?.length == 0
+                        ? "Categories"
+                        : "Category"}
                     </small>
                   </footer>
                 </div>

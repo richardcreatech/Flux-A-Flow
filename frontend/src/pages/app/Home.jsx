@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_BASE_URL from "../../config/api";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -32,7 +33,7 @@ function Home() {
   const loadDashboard = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/dashboard", {
+    const res = await fetch(`${API_BASE_URL}/auth/dashboard`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -44,7 +45,7 @@ function Home() {
   const loadReviews = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/reviews", {
+    const res = await fetch(`${API_BASE_URL}/auth/reviews`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -84,7 +85,7 @@ function Home() {
     // Try the new /auth/home endpoint, fall back to /auth/profile, then to dummy
     (async () => {
       try {
-        const res = await fetch("https://flux-a-flow.onrender.com/auth/home", {
+        const res = await fetch(`${API_BASE_URL}/auth/home`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {
@@ -96,7 +97,7 @@ function Home() {
       } catch (_) {}
 
       try {
-        const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
+        const res = await fetch(`${API_BASE_URL}/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {

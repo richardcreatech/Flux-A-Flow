@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { faClose, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useRef } from "react";
+import API_BASE_URL from "../../config/api";
 
 function Prod() {
   const navigate = useNavigate();
@@ -28,9 +29,7 @@ function Prod() {
 
   const filteredProducts = prods.filter((product) => {
     if (selectedMarket == "all") {
-      return(
-      product.name.toLowerCase().includes(search.toLowerCase()) 
-    )
+      return product.name.toLowerCase().includes(search.toLowerCase());
     }
     return (
       product.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -42,7 +41,7 @@ function Prod() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("https://flux-a-flow.onrender.com/auth/social-profile", {
+      const res = await fetch(`${API_BASE_URL}/auth/social-profile`, {
         method: "GET",
 
         headers: {
@@ -85,7 +84,7 @@ function Prod() {
     }
 
     try {
-      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
+      const res = await fetch(`${API_BASE_URL}/auth/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -109,15 +108,11 @@ function Prod() {
   const loadProducts = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(
-      "https://flux-a-flow.onrender.com/auth/all-products",
-
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    const res = await fetch(`${API_BASE_URL}/auth/all-products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
 
     const data = await res.json();
     setProds(data.products);

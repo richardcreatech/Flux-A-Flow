@@ -4,6 +4,7 @@ import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
 import Aside from "../../components/Aside";
 import { useNavigate } from "react-router-dom";
 import "../../styles/profile.css";
+import API_BASE_URL from "../../config/api";
 
 function Profile() {
   const [input, setInput] = useState("");
@@ -26,7 +27,7 @@ function Profile() {
     e.preventDefault();
     const token = localStorage.getItem("token");
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
+    const res = await fetch(`${API_BASE_URL}/auth/profile`, {
       method: "PATCH",
 
       headers: {
@@ -42,7 +43,7 @@ function Profile() {
       }),
     });
     const data = await res.json();
-    location.reload()
+    location.reload();
   };
 
   const edit_profile_pic = async (e) => {
@@ -52,7 +53,7 @@ function Profile() {
 
     form.append("profilePicture", file);
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/profilePicture", {
+    const res = await fetch(`${API_BASE_URL}/auth/profilePicture`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -61,7 +62,7 @@ function Profile() {
     });
 
     const data = await res.json();
-    location.reload()
+    location.reload();
   };
 
   const handleImageChange = (e) => {
@@ -82,7 +83,7 @@ function Profile() {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch("https://flux-a-flow.onrender.com/auth/social-profile", {
+      const res = await fetch(`${API_BASE_URL}/auth/social-profile`, {
         method: "GET",
 
         headers: {
@@ -125,7 +126,7 @@ function Profile() {
     }
 
     try {
-      const res = await fetch("https://flux-a-flow.onrender.com/auth/profile", {
+      const res = await fetch(`${API_BASE_URL}/auth/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +158,7 @@ function Profile() {
     formData.append("description", desc);
     formData.append("originCountry", origin);
 
-    const res = await fetch("https://flux-a-flow.onrender.com/auth/upload-profile", {
+    const res = await fetch(`${API_BASE_URL}/auth/upload-profile`, {
       method: "POST",
       headers: {
         // This tells the backend WHO is making the request

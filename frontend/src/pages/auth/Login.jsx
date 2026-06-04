@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Successful from "../../components/Success";
+import API_BASE_URL from "../../config/api";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -26,20 +27,17 @@ function Login() {
     }
 
     try {
-      const response = await fetch(
-        "https://flux-a-flow.onrender.com/auth/signin",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password,
-          }),
+      const response = await fetch(`${API_BASE_URL}/auth/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        credentials: "include",
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
       const data = await response.json();
       setData(data);
